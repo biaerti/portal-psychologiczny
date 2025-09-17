@@ -162,6 +162,21 @@
             align-items: center;
         }
 
+        .btn-change-password {
+            padding: 8px 16px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.3s;
+        }
+
+        .btn-change-password:hover {
+            background: #5568d3;
+        }
+
         .btn-logout {
             padding: 8px 20px;
             background: #f0f0f0;
@@ -298,13 +313,6 @@
             to { opacity: 1; }
         }
 
-        /* Loading */
-        .loading {
-            text-align: center;
-            padding: 40px;
-            color: #666;
-        }
-
         /* Material Cards */
         .materials-grid {
             display: grid;
@@ -319,6 +327,7 @@
             padding: 25px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.08);
             transition: all 0.3s;
+            cursor: pointer;
         }
 
         .material-card:hover {
@@ -335,7 +344,6 @@
             font-size: 12px;
             font-weight: 600;
             margin-bottom: 15px;
-            text-transform: uppercase;
         }
 
         .material-card h3 {
@@ -344,9 +352,10 @@
             font-size: 18px;
         }
 
-        .material-card .content {
+        .material-card p {
             color: #666;
             line-height: 1.6;
+            margin-bottom: 15px;
         }
 
         /* Exercise Section */
@@ -366,7 +375,7 @@
             gap: 10px;
         }
 
-        .task-item {
+        .exercise-item {
             background: white;
             border-radius: 10px;
             padding: 15px;
@@ -387,13 +396,205 @@
             accent-color: #667eea;
         }
 
-        .task-content {
+        .exercise-content {
             flex: 1;
         }
 
-        .task-done {
+        .exercise-done {
             opacity: 0.7;
             text-decoration: line-through;
+        }
+
+        /* Feedback Section */
+        .feedback-section {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+
+        .feedback-section h4 {
+            color: #333;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .feedback-textarea {
+            width: 100%;
+            min-height: 120px;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 14px;
+            resize: vertical;
+            transition: border-color 0.3s;
+        }
+
+        .feedback-textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .btn-submit-feedback {
+            margin-top: 15px;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-submit-feedback:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        /* Review CTA */
+        .review-cta {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e8eaf6 100%);
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 40px;
+            border: 2px solid #667eea;
+        }
+
+        .review-cta h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .review-cta p {
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* ZnanyLekarz Widget Section */
+        .znanylekarz-section {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+
+        .doctor-info {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .doctor-photo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #667eea;
+        }
+
+        .doctor-details h4 {
+            color: #333;
+            margin-bottom: 5px;
+            font-size: 18px;
+        }
+
+        .doctor-details p {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .widget-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn-review {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin: 5px;
+        }
+
+        .btn-review:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .review-note {
+            margin-top: 15px;
+            font-size: 12px;
+            color: #999;
+            font-style: italic;
+        }
+
+        /* ZnanyLekarz widget custom styling */
+        #zl-url {
+            display: inline-block !important;
+            margin: 5px !important;
+        }
+
+        /* Password Change Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            max-width: 400px;
+            width: 90%;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .modal-header {
+            margin-bottom: 20px;
+        }
+
+        .modal-header h3 {
+            color: #667eea;
+            font-size: 20px;
+        }
+
+        .btn-close-modal {
+            float: right;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #999;
         }
 
         /* Notification */
@@ -411,10 +612,6 @@
             z-index: 1000;
         }
 
-        .notification.error {
-            background: #f44336;
-        }
-
         @keyframes slideInRight {
             from {
                 transform: translateX(100%);
@@ -428,6 +625,12 @@
 
         .notification.show {
             display: block;
+        }
+
+        /* Loading State */
+        .loading {
+            color: #667eea;
+            font-style: italic;
         }
 
         /* Responsive */
@@ -451,6 +654,15 @@
                 width: 100%;
                 justify-content: center;
             }
+
+            .doctor-info {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .widget-container {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
@@ -469,7 +681,7 @@
                 
                 <div class="form-group">
                     <label for="password">Hasło (PIN)</label>
-                    <input type="password" id="password" required placeholder="Twój PIN">
+                    <input type="password" id="password" maxlength="4" pattern="\d{4}" required placeholder="4-cyfrowy PIN">
                 </div>
                 
                 <button type="submit" class="btn-login">Zaloguj się</button>
@@ -494,6 +706,7 @@
                     <div class="user-avatar" id="userAvatar">JK</div>
                     <span id="userName">Jan Kowalski</span>
                     <div class="user-actions">
+                        <button class="btn-change-password" onclick="showPasswordModal()">Zmień hasło</button>
                         <button class="btn-logout" onclick="logout()">Wyloguj</button>
                     </div>
                 </div>
@@ -508,24 +721,136 @@
                 
                 <div class="progress-info">
                     <h3>📊 Nad czym pracujemy</h3>
-                    <div class="current-focus" id="currentFocus">
-                        <strong>Aktualny obszar pracy:</strong> Ładowanie danych...
+                    <div class="current-focus">
+                        <strong>Aktualny obszar pracy:</strong> <span id="currentGoal" class="loading">Ładowanie danych...</span>
+                        <br><br>
+                        <strong>Gdzie jesteśmy:</strong> <span id="currentProgress" class="loading">Ładowanie danych...</span>
                     </div>
                 </div>
             </div>
         </div>
 
-
         <!-- Navigation Tabs -->
         <div class="tabs-container">
-            <div class="tabs" id="tabsContainer">
-                <div class="loading">Ładowanie sesji...</div>
+            <div class="tabs">
+                <button class="tab active" onclick="switchTab('session0')">📚 Wprowadzenie</button>
+                <button class="tab" onclick="switchTab('session1')">📅 Spotkanie 1</button>
+                <button class="tab" onclick="switchTab('session2')">📅 Spotkanie 2</button>
+                <button class="tab" onclick="switchTab('session3')">📅 Spotkanie 3</button>
             </div>
         </div>
 
         <!-- Content Area -->
-        <div class="content-area" id="contentArea">
-            <div class="loading">Ładowanie materiałów...</div>
+        <div class="content-area">
+            <!-- Session 0 - Introduction Materials -->
+            <div class="session-content active" id="session0">
+                <div class="materials-grid">
+                    <div class="material-card">
+                        <span class="material-type">WPROWADZENIE</span>
+                        <h3>Jak będziemy pracować?</h3>
+                        <p>Nasze spotkania opierają się na sprawdzonych metodach psychologicznych. Będziemy razem badać to, co Cię blokuje, testować różne rozwiązania i sprawdzać, co działa najlepiej właśnie dla Ciebie.</p>
+                        <div class="exercise-box">
+                            <h4>📝 Czego możesz się spodziewać</h4>
+                            <p>• Konkretna praca nad tym, co chcesz zmienić<br>
+                            • Praktyczne techniki do zastosowania od razu<br>
+                            • Wsparcie bez oceniania<br>
+                            • Skupienie na "tu i teraz" z elementami zrozumienia przeszłości</p>
+                        </div>
+                    </div>
+
+                    <div class="material-card">
+                        <span class="material-type">ZASADY</span>
+                        <h3>Nasza współpraca</h3>
+                        <p><strong>Poufność:</strong> To, o czym rozmawiamy, zostaje między nami. Wyjątkiem są sytuacje zagrożenia życia lub zdrowia.</p>
+                        <p><strong>Twój wkład:</strong> Im bardziej się zaangażujesz, tym lepsze efekty. To jak trening - ja jestem trenerem, ale to Ty wykonujesz ćwiczenia.</p>
+                        <p><strong>Czas:</strong> Spotkania trwają 50 minut. Jeśli nie możesz przyjść, daj znać przynajmniej 24h wcześniej.</p>
+                        <p><strong>Materiały:</strong> Po każdym spotkaniu znajdziesz tu nowe materiały. Sprawdzaj portal w weekendy - aktualizuję go w piątki wieczorem.</p>
+                    </div>
+
+                    <div class="material-card">
+                        <span class="material-type">INFO</span>
+                        <h3>O nagrywaniu spotkań</h3>
+                        <p>Nasze spotkania mogą być nagrywane w celu:</p>
+                        <p>• Tworzenia dokładnych notatek i materiałów dla Ciebie<br>
+                        • Superwizji i podnoszenia jakości mojej pracy<br>
+                        • Analizy postępów i dostosowania metod</p>
+                        <p><strong>Gwarancja bezpieczeństwa:</strong> Nagrania są przechowywane lokalnie, w bezpieczny sposób. Nie trafiają do żadnych zewnętrznych firm, platform czy systemów AI. Masz prawo do wglądu, poprosić o usunięcie nagrania lub odmówić zgody w dowolnym momencie.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dynamic content for sessions will be loaded here -->
+            <div class="session-content" id="session1">
+                <div class="materials-grid" id="session1-materials">
+                    <!-- Dynamic content from Supabase -->
+                </div>
+                <div class="feedback-section">
+                    <h4>💭 Jak poszło?</h4>
+                    <textarea class="feedback-textarea" placeholder="Napisz jak poszło z ćwiczeniami. Co było łatwe? Co trudne? Jakie masz spostrzeżenia? To pomoże mi lepiej dopasować kolejne materiały."></textarea>
+                    <button class="btn-submit-feedback" onclick="submitFeedback()">Wyślij feedback</button>
+                </div>
+            </div>
+
+            <div class="session-content" id="session2">
+                <div class="materials-grid" id="session2-materials">
+                    <div class="material-card">
+                        <span class="material-type">WKRÓTCE</span>
+                        <h3>Materiały pojawią się po spotkaniu</h3>
+                        <p>Zajrzyj tu w weekend - zazwyczaj aktualizuję portal w piątek wieczorem, żebyś miał czas spokojnie przejrzeć materiały.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="session-content" id="session3">
+                <div class="materials-grid" id="session3-materials">
+                    <div class="material-card">
+                        <span class="material-type">WKRÓTCE</span>
+                        <h3>Tu będą materiały z trzeciego spotkania</h3>
+                        <p>Pamiętaj - pracujemy w Twoim tempie. Nie musisz się spieszyć.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ZnanyLekarz Widget Section -->
+            <div class="znanylekarz-section">
+                <div class="doctor-info">
+                    <img src="https://destruktura.pl/bart-zdjecie.jpg" alt="Bartosz Kuniński" class="doctor-photo">
+                    <div class="doctor-details">
+                        <h4>Bartosz Kuniński</h4>
+                        <p>Psycholog, Wrocław</p>
+                        <p>Jeśli nasza współpraca Ci pomaga, będę wdzięczny za opinię</p>
+                    </div>
+                </div>
+                
+                <div class="widget-container">
+                    <a id="zl-url" class="zl-url" href="https://www.znanylekarz.pl/bartosz-kuninski/psycholog/wroclaw" rel="nofollow" data-zlw-doctor="bartosz-kuninski" data-zlw-type="big" data-zlw-opinion="true" data-zlw-hide-branding="true" data-zlw-saas-only="true" data-zlw-a11y-title="Widget umówienia wizyty lekarskiej">Bartosz Kuniński - ZnanyLekarz.pl</a>
+                    <a href="https://www.znanylekarz.pl/bartosz-kuninski/psycholog/wroclaw" target="_blank" class="btn-review">Zostaw opinię</a>
+                </div>
+                
+                <p class="review-note">Twoja opinia naprawdę robi różnicę - dzięki niej więcej osób może znaleźć drogę do lepszego samopoczucia 💜</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Password Change Modal -->
+    <div class="modal" id="passwordModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="btn-close-modal" onclick="closePasswordModal()">&times;</button>
+                <h3>Zmiana hasła</h3>
+            </div>
+            <form id="passwordForm">
+                <div class="form-group">
+                    <label for="newPassword">Nowe hasło (4-cyfrowy PIN)</label>
+                    <input type="password" id="newPassword" maxlength="4" pattern="\d{4}" required placeholder="0000">
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Potwierdź nowe hasło</label>
+                    <input type="password" id="confirmPassword" maxlength="4" pattern="\d{4}" required placeholder="0000">
+                </div>
+                <button type="submit" class="btn-login">Zmień hasło</button>
+            </form>
+            <p style="margin-top: 15px; font-size: 13px; color: #666;">Po zmianie hasła tylko Ty będziesz znać dostęp do swoich materiałów.</p>
         </div>
     </div>
 
@@ -534,19 +859,228 @@
         Zapisano pomyślnie!
     </div>
 
-    <!-- Supabase JS -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    
-    <script>
-        // Inicjalizacja Supabase
-        const supabase = window.supabase.createClient(
-            'https://oelhskekwwrmezjcanug.supabase.co',
-            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9lbGhza2Vrd3dybWV6amNhbnVnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc4NjAwNDIsImV4cCI6MjA3MzQzNjA0Mn0.piU6TrGnxoYuLtc4vRGuFCE-0b5lSwg6RDt0ygtvGdU'
-        );
+    <!-- ZnanyLekarz Widget Script -->
+    <script>!function($_x,_s,id){var js,fjs=$_x.getElementsByTagName(_s)[0];if(!$_x.getElementById(id)){js = $_x.createElement(_s);js.id = id;js.src = "//platform.docplanner.com/js/widget.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","zl-widget-s");</script>
 
-        // Globalne zmienne
-        let currentUser = null;
-        let userSessions = [];
+    <script>
+        // API Configuration 
+        const API_CONFIG = {
+            supabaseUrl: 'https://ypjmlxktfdbzgwbfoxjz.supabase.co',
+            supabaseKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inlwam1seGt0ZmRiemd3YmZveGp6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzM5MjkzNTEsImV4cCI6MjA0OTUwNTM1MX0.xczDwI5PVJnTVqOHNL8JYYGxdQ5LFN-j6_yKJvlnJrA',
+            n8nWebhookUrl: 'YOUR_N8N_WEBHOOK_URL'
+        };
+
+        // Initialize Supabase client
+        let supabase;
+        if (typeof window !== 'undefined') {
+            // Load Supabase client
+            const script = document.createElement('script');
+            script.src = 'https://unpkg.com/@supabase/supabase-js@2';
+            script.onload = () => {
+                supabase = window.supabase.createClient(API_CONFIG.supabaseUrl, API_CONFIG.supabaseKey);
+                
+                // Load user data if logged in
+                const userName = localStorage.getItem('userName');
+                if (userName) {
+                    loadUserData();
+                }
+            };
+            document.head.appendChild(script);
+        }
+
+        // Load user data from Supabase
+        async function loadUserData() {
+            const username = localStorage.getItem('username');
+            if (!username || !supabase) return;
+
+            try {
+                // Get user profile with current goal and progress
+                const { data: profile, error: profileError } = await supabase
+                    .from('profiles')
+                    .select('current_goal, current_progress')
+                    .eq('username', username)
+                    .single();
+
+                if (!profileError && profile) {
+                    // Update progress info
+                    document.getElementById('currentGoal').textContent = profile.current_goal || 'Określimy na pierwszym spotkaniu';
+                    document.getElementById('currentProgress').textContent = profile.current_progress || 'Rozpoczynamy naszą współpracę';
+                    
+                    // Remove loading class
+                    document.getElementById('currentGoal').classList.remove('loading');
+                    document.getElementById('currentProgress').classList.remove('loading');
+                }
+
+                // Load sessions and materials
+                await loadSessionMaterials(username);
+
+            } catch (error) {
+                console.error('Error loading user data:', error);
+                // Keep default loading text if there's an error
+            }
+        }
+
+        // Load session materials
+        async function loadSessionMaterials(username) {
+            try {
+                // Get user profile ID
+                const { data: profile, error: profileError } = await supabase
+                    .from('profiles')
+                    .select('id')
+                    .eq('username', username)
+                    .single();
+
+                if (profileError || !profile) return;
+
+                // Get sessions with materials and tasks
+                const { data: sessions, error: sessionsError } = await supabase
+                    .from('sessions')
+                    .select(`
+                        id,
+                        session_no,
+                        title,
+                        session_date,
+                        materials (*),
+                        tasks (*)
+                    `)
+                    .eq('patient_id', profile.id)
+                    .eq('status', 'published')
+                    .order('session_no', { ascending: true });
+
+                if (sessionsError) {
+                    console.error('Error loading sessions:', sessionsError);
+                    return;
+                }
+
+                // Render sessions
+                if (sessions && sessions.length > 0) {
+                    renderSessions(sessions);
+                }
+
+            } catch (error) {
+                console.error('Error loading session materials:', error);
+            }
+        }
+
+        // Render sessions from Supabase data
+        function renderSessions(sessions) {
+            sessions.forEach(session => {
+                const sessionContainer = document.getElementById(`session${session.session_no}-materials`);
+                if (sessionContainer) {
+                    sessionContainer.innerHTML = '';
+                    
+                    // Render materials
+                    if (session.materials && session.materials.length > 0) {
+                        session.materials.sort((a, b) => (a.position || 0) - (b.position || 0));
+                        
+                        session.materials.forEach(material => {
+                            const materialCard = createMaterialCard(material);
+                            sessionContainer.appendChild(materialCard);
+                        });
+                    }
+
+                    // Add tasks if available
+                    if (session.tasks && session.tasks.length > 0) {
+                        const tasksCard = createTasksCard(session.tasks, session.session_no);
+                        sessionContainer.appendChild(tasksCard);
+                    }
+                    
+                    // Update tab to show it has content
+                    const tab = document.querySelector(`[onclick="switchTab('session${session.session_no}')"]`);
+                    if (tab && !tab.textContent.includes('✅')) {
+                        tab.innerHTML = tab.innerHTML.replace('📅', '✅');
+                    }
+                }
+            });
+        }
+
+        // Create material card element
+        function createMaterialCard(material) {
+            const card = document.createElement('div');
+            card.className = 'material-card';
+            
+            const typeSpan = document.createElement('span');
+            typeSpan.className = 'material-type';
+            typeSpan.textContent = (material.kind || 'info').toUpperCase();
+            
+            const heading = document.createElement('h3');
+            heading.textContent = material.heading || 'Bez tytułu';
+            
+            const content = document.createElement('div');
+            content.innerHTML = markdownToHtml(material.body_md || '');
+            
+            card.appendChild(typeSpan);
+            card.appendChild(heading);
+            card.appendChild(content);
+            
+            return card;
+        }
+
+        // Create tasks card element
+        function createTasksCard(tasks, sessionNo) {
+            const card = document.createElement('div');
+            card.className = 'material-card';
+            
+            const typeSpan = document.createElement('span');
+            typeSpan.className = 'material-type';
+            typeSpan.textContent = 'ZADANIA';
+            
+            const heading = document.createElement('h3');
+            heading.textContent = 'Do wypróbowania w tym tygodniu';
+            
+            const exerciseBox = document.createElement('div');
+            exerciseBox.className = 'exercise-box';
+            
+            const exerciseHeading = document.createElement('h4');
+            exerciseHeading.innerHTML = '✅ Zadania na ten tydzień';
+            exerciseBox.appendChild(exerciseHeading);
+            
+            tasks.forEach((task, index) => {
+                const exerciseItem = document.createElement('div');
+                exerciseItem.className = 'exercise-item';
+                
+                const checkboxWrapper = document.createElement('div');
+                checkboxWrapper.className = 'checkbox-wrapper';
+                
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.id = `task_${sessionNo}_${index}`;
+                checkbox.onchange = () => toggleExercise(checkbox);
+                
+                const exerciseContent = document.createElement('div');
+                exerciseContent.className = 'exercise-content';
+                
+                const label = document.createElement('label');
+                label.setAttribute('for', checkbox.id);
+                label.innerHTML = `<strong>${task.title}</strong>`;
+                if (task.description) {
+                    label.innerHTML += `<br><small>${task.description}</small>`;
+                }
+                
+                checkboxWrapper.appendChild(checkbox);
+                exerciseContent.appendChild(label);
+                exerciseItem.appendChild(checkboxWrapper);
+                exerciseItem.appendChild(exerciseContent);
+                exerciseBox.appendChild(exerciseItem);
+            });
+            
+            card.appendChild(typeSpan);
+            card.appendChild(heading);
+            card.appendChild(exerciseBox);
+            
+            return card;
+        }
+
+        // Simple markdown to HTML converter
+        function markdownToHtml(markdown) {
+            return markdown
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\*(.*?)\*/g, '<em>$1</em>')
+                .replace(/\n\n/g, '</p><p>')
+                .replace(/\n/g, '<br>')
+                .replace(/^/, '<p>')
+                .replace(/$/, '</p>');
+        }
 
         // Login functionality
         document.getElementById('loginForm').addEventListener('submit', async function(e) {
@@ -555,244 +1089,165 @@
             const username = document.getElementById('username').value.toLowerCase();
             const password = document.getElementById('password').value;
             
-            if (!username || !password) {
-                showNotification('Wprowadź login i hasło', 'error');
+            if (!supabase) {
+                showNotification('System się ładuje, spróbuj za chwilę...');
                 return;
             }
 
             try {
-                console.log('Próba logowania dla:', username);
-                
-                // Sprawdź użytkownika w bazie
-                const { data: user, error } = await supabase
+                // Validate against Supabase
+                const { data: profile, error } = await supabase
                     .from('profiles')
-                    .select('*')
+                    .select('username, display_name, pin_hash')
                     .eq('username', username)
                     .single();
 
-                console.log('Wynik zapytania:', { user, error });
-
-                if (error || !user) {
-                    showNotification('Nieprawidłowy login lub hasło', 'error');
+                if (error || !profile) {
+                    showNotification('Nieprawidłowy login lub hasło');
                     return;
                 }
 
-                // Sprawdź PIN 
-                if (password !== user.pin_hash) {
-                    showNotification('Nieprawidłowy PIN', 'error');
+                // Simple PIN validation (in production, use proper hashing)
+                if (profile.pin_hash !== password) {
+                    showNotification('Nieprawidłowy login lub hasło');
                     return;
                 }
 
+                // Log first login
+                await logFirstLogin(username);
+                
+                // Extract name from display_name or username
+                const displayName = profile.display_name || formatDisplayName(username);
+                
                 // Store user info
-                currentUser = user;
-                localStorage.setItem('currentUsername', username);
+                localStorage.setItem('userName', displayName);
+                localStorage.setItem('username', username);
+                localStorage.setItem('userInitials', getInitials(displayName));
                 
                 // Show app
                 document.getElementById('loginScreen').style.display = 'none';
                 document.getElementById('appScreen').style.display = 'block';
                 
                 // Update user info in header
-                document.getElementById('userName').textContent = user.display_name;
-                const initials = user.display_name.split(' ').map(n => n[0]).join('');
-                document.getElementById('userAvatar').textContent = initials.toUpperCase();
+                document.getElementById('userName').textContent = displayName;
+                document.getElementById('userAvatar').textContent = getInitials(displayName);
 
                 // Load user data
                 await loadUserData();
 
             } catch (error) {
                 console.error('Login error:', error);
-                showNotification('Błąd logowania. Spróbuj ponownie.', 'error');
+                showNotification('Błąd logowania. Spróbuj ponownie.');
             }
         });
 
-        // Load user data
-        async function loadUserData() {
-            try {
-                console.log('Ładowanie danych dla użytkownika:', currentUser.id);
+        // Format display name from username
+        function formatDisplayName(username) {
+            const [firstName, lastName] = username.split('.');
+            return `${capitalize(firstName)} ${capitalize(lastName)}`;
+        }
+
+        // Get initials from display name
+        function getInitials(displayName) {
+            const names = displayName.split(' ');
+            return names.map(name => name[0]).join('').toUpperCase();
+        }
+
+        // Log first login
+        async function logFirstLogin(username) {
+            const isFirstLogin = !localStorage.getItem(`firstLogin_${username}`);
+            if (isFirstLogin) {
+                localStorage.setItem(`firstLogin_${username}`, new Date().toISOString());
                 
-                // Load sessions with materials and tasks
-                const { data: sessions, error: sessionsError } = await supabase
-                    .from('sessions')
-                    .select(`
-                        *,
-                        materials(*),
-                        tasks(*)
-                    `)
-                    .eq('patient_id', currentUser.id)
-                    .order('session_no', { ascending: true });
-
-                console.log('Sesje:', { sessions, sessionsError });
-
-                if (sessionsError) {
-                    console.error('Error loading sessions:', sessionsError);
-                    showNotification('Błąd ładowania sesji', 'error');
-                    return;
+                // Log to Supabase
+                try {
+                    await supabase
+                        .from('user_activities')
+                        .insert({
+                            username: username,
+                            activity_type: 'first_login',
+                            timestamp: new Date().toISOString()
+                        });
+                } catch (error) {
+                    console.log('Could not log first login:', error);
                 }
-
-                userSessions = sessions || [];
-                renderTabs();
-                renderContent();
-
-            } catch (error) {
-                console.error('Error loading user data:', error);
-                showNotification('Błąd ładowania danych', 'error');
             }
         }
 
-        // Render tabs
-        function renderTabs() {
-            const tabsContainer = document.getElementById('tabsContainer');
+        // Helper function to capitalize names
+        function capitalize(str) {
+            return str ? str.charAt(0).toUpperCase() + str.slice(1) : '';
+        }
+
+        // Check if already logged in
+        window.addEventListener('load', function() {
+            const userName = localStorage.getItem('userName');
+            if (userName) {
+                document.getElementById('loginScreen').style.display = 'none';
+                document.getElementById('appScreen').style.display = 'block';
+                document.getElementById('userName').textContent = userName;
+                document.getElementById('userAvatar').textContent = localStorage.getItem('userInitials');
+            }
+        });
+
+        // Logout functionality
+        function logout() {
+            localStorage.removeItem('userName');
+            localStorage.removeItem('username');
+            localStorage.removeItem('userInitials');
+            document.getElementById('loginScreen').style.display = 'flex';
+            document.getElementById('appScreen').style.display = 'none';
+            document.getElementById('loginForm').reset();
             
-            let tabsHTML = `
-                <button class="tab active" onclick="switchTab('intro')">📚 Wprowadzenie</button>
-            `;
-
-            // Dodaj tabs dla sesji
-            userSessions.forEach(session => {
-                tabsHTML += `
-                    <button class="tab" onclick="switchTab('session-${session.session_no}')">
-                        📅 Spotkanie ${session.session_no}
-                    </button>
-                `;
-            });
-
-            if (userSessions.length === 0) {
-                tabsHTML += '<div class="loading">Brak sesji. Materiały pojawią się po pierwszym spotkaniu.</div>';
-            }
-
-            tabsContainer.innerHTML = tabsHTML;
+            // Reset progress info to loading state
+            document.getElementById('currentGoal').textContent = 'Ładowanie danych...';
+            document.getElementById('currentProgress').textContent = 'Ładowanie danych...';
+            document.getElementById('currentGoal').classList.add('loading');
+            document.getElementById('currentProgress').classList.add('loading');
         }
 
-        // Render content
-        function renderContent() {
-            const contentArea = document.getElementById('contentArea');
+        // Password change modal
+        function showPasswordModal() {
+            document.getElementById('passwordModal').style.display = 'flex';
+        }
+
+        function closePasswordModal() {
+            document.getElementById('passwordModal').style.display = 'none';
+            document.getElementById('passwordForm').reset();
+        }
+
+        // Password change form
+        document.getElementById('passwordForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
             
-            let contentHTML = `
-                <!-- Introduction Tab -->
-                <div class="session-content active" id="intro">
-                    ${renderIntroduction()}
-                </div>
-            `;
-
-            // Render session content
-            userSessions.forEach(session => {
-                contentHTML += `
-                    <div class="session-content" id="session-${session.session_no}">
-                        ${renderSession(session)}
-                    </div>
-                `;
-            });
-
-            contentArea.innerHTML = contentHTML;
-        }
-
-        // Render introduction
-        function renderIntroduction() {
-            return `
-                <div class="materials-grid">
-                    <div class="material-card">
-                        <span class="material-type">WPROWADZENIE</span>
-                        <h3>Jak będziemy pracować?</h3>
-                        <div class="content">
-                            <p>Nasze spotkania opierają się na sprawdzonych metodach psychologicznych. Będziemy razem badać to, co Cię blokuje, testować różne rozwiązania i sprawdzać, co działa najlepiej właśnie dla Ciebie.</p>
-                            <div class="exercise-box">
-                                <h4>📝 Czego możesz się spodziewać</h4>
-                                <p>• Konkretna praca nad tym, co chcesz zmienić<br>
-                                • Praktyczne techniki do zastosowania od razu<br>
-                                • Wsparcie bez oceniania<br>
-                                • Skupienie na "tu i teraz" z elementami zrozumienia przeszłości</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="material-card">
-                        <span class="material-type">ZASADY</span>
-                        <h3>Nasza współpraca</h3>
-                        <div class="content">
-                            <p><strong>Poufność:</strong> To, o czym rozmawiamy, zostaje między nami. Wyjątkiem są sytuacje zagrożenia życia lub zdrowia.</p>
-                            <p><strong>Twój wkład:</strong> Im bardziej się zaangażujesz, tym lepsze efekty. To jak trening - ja jestem trenerem, ale to Ty wykonujesz ćwiczenia.</p>
-                            <p><strong>Czas:</strong> Spotkania trwają 50 minut. Jeśli nie możesz przyjść, daj znać przynajmniej 24h wcześniej.</p>
-                            <p><strong>Materiały:</strong> Po każdym spotkaniu znajdziesz tu nowe materiały. Sprawdzaj portal w weekendy - aktualizuję go w piątki wieczorem.</p>
-                        </div>
-                    </div>
-
-                    <div class="material-card">
-                        <span class="material-type">INFO</span>
-                        <h3>O nagrywaniu spotkań</h3>
-                        <div class="content">
-                            <p>Nasze spotkania mogą być nagrywane w celu:</p>
-                            <p>• Tworzenia dokładnych notatek i materiałów dla Ciebie<br>
-                            • Superwizji i podnoszenia jakości mojej pracy<br>
-                            • Analizy postępów i dostosowania metod</p>
-                            <p><strong>Gwarancja bezpieczeństwa:</strong> Nagrania są przechowywane lokalnie, w bezpieczny sposób. Nie trafiają do żadnych zewnętrznych firm, platform czy systemów AI. Masz prawo do wglądu, poprosić o usunięcie nagrania lub odmówić zgody w dowolnym momencie.</p>
-                        </div>
-                    </div>
-                </div>
-            `;
-        }
-
-        // Render session
-        function renderSession(session) {
-            let html = `<div class="materials-grid">`;
-
-            // Materials
-            if (session.materials && session.materials.length > 0) {
-                session.materials.forEach(material => {
-                    html += `
-                        <div class="material-card">
-                            <span class="material-type">${material.kind}</span>
-                            <h3>${material.heading}</h3>
-                            <div class="content">
-                                ${material.body_md ? material.body_md.replace(/\n/g, '<br>') : ''}
-                            </div>
-                        </div>
-                    `;
-                });
-            } else {
-                html += `
-                    <div class="material-card">
-                        <span class="material-type">INFO</span>
-                        <h3>Materiały w przygotowaniu</h3>
-                        <div class="content">
-                            <p>Materiały z tego spotkania pojawią się wkrótce. Sprawdź portal w weekend.</p>
-                        </div>
-                    </div>
-                `;
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const username = localStorage.getItem('username');
+            
+            if (newPassword !== confirmPassword) {
+                showNotification('Hasła nie są identyczne!');
+                return;
             }
+            
+            try {
+                // Update password in Supabase
+                const { error } = await supabase
+                    .from('profiles')
+                    .update({ pin_hash: newPassword })
+                    .eq('username', username);
 
-            html += `</div>`;
-
-            // Tasks
-            if (session.tasks && session.tasks.length > 0) {
-                html += `
-                    <div class="exercise-box">
-                        <h4>✅ Do wypróbowania w tym tygodniu</h4>
-                `;
+                if (error) throw error;
                 
-                session.tasks.forEach(task => {
-                    html += `
-                        <div class="task-item">
-                            <div class="checkbox-wrapper">
-                                <input type="checkbox" id="task-${task.id}" onchange="toggleTask(this, ${task.id})">
-                            </div>
-                            <div class="task-content">
-                                <label for="task-${task.id}">
-                                    <strong>${task.title}</strong>
-                                    ${task.description ? `<br><small>${task.description}</small>` : ''}
-                                </label>
-                            </div>
-                        </div>
-                    `;
-                });
-
-                html += `</div>`;
+                showNotification('Hasło zostało zmienione! 🔐');
+                closePasswordModal();
+            } catch (error) {
+                console.error('Password change error:', error);
+                showNotification('Nie udało się zmienić hasła. Spróbuj ponownie.');
             }
-
-            return html;
-        }
+        });
 
         // Tab switching
-        function switchTab(tabId) {
+        function switchTab(sessionId) {
             // Update tabs
             document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
             event.target.classList.add('active');
@@ -801,96 +1256,110 @@
             document.querySelectorAll('.session-content').forEach(content => {
                 content.classList.remove('active');
             });
-            
-            const targetContent = document.getElementById(tabId);
-            if (targetContent) {
-                targetContent.classList.add('active');
-            }
+            document.getElementById(sessionId).classList.add('active');
         }
 
-        // Task toggle
-        async function toggleTask(checkbox, taskId) {
-            const taskItem = checkbox.closest('.task-item');
-            const content = taskItem.querySelector('.task-content');
+        // Exercise toggle
+        function toggleExercise(checkbox) {
+            const exerciseItem = checkbox.closest('.exercise-item');
+            const content = exerciseItem.querySelector('.exercise-content');
             
             if (checkbox.checked) {
-                content.classList.add('task-done');
+                content.classList.add('exercise-done');
                 showNotification('Świetnie! Zadanie wykonane 🎉');
                 
-                // Save to database
-                try {
-                    await supabase
-                        .from('completed_tasks')
-                        .upsert({
-                            profile_id: currentUser.id,
-                            task_id: taskId
-                        });
-                } catch (error) {
-                    console.error('Error saving completed task:', error);
-                }
-            } else {
-                content.classList.remove('task-done');
+                // Save state
+                localStorage.setItem(checkbox.id, 'done');
                 
-                // Remove from database
-                try {
-                    await supabase
-                        .from('completed_tasks')
-                        .delete()
-                        .eq('profile_id', currentUser.id)
-                        .eq('task_id', taskId);
-                } catch (error) {
-                    console.error('Error removing completed task:', error);
-                }
+                // Log to backend
+                logExerciseCompletion(checkbox.id);
+            } else {
+                content.classList.remove('exercise-done');
+                localStorage.removeItem(checkbox.id);
             }
         }
 
-        // Check if already logged in
-        window.addEventListener('load', async function() {
-            const savedUsername = localStorage.getItem('currentUsername');
-            if (savedUsername) {
-                try {
-                    const { data: user, error } = await supabase
-                        .from('profiles')
-                        .select('*')
-                        .eq('username', savedUsername)
-                        .single();
-
-                    if (user && !error) {
-                        currentUser = user;
-                        document.getElementById('loginScreen').style.display = 'none';
-                        document.getElementById('appScreen').style.display = 'block';
-                        document.getElementById('userName').textContent = user.display_name;
-                        const initials = user.display_name.split(' ').map(n => n[0]).join('');
-                        document.getElementById('userAvatar').textContent = initials.toUpperCase();
-                        
-                        await loadUserData();
-                    }
-                } catch (error) {
-                    console.error('Auto-login error:', error);
-                }
+        // Log exercise completion
+        async function logExerciseCompletion(exerciseId) {
+            try {
+                const username = localStorage.getItem('username');
+                await supabase
+                    .from('user_activities')
+                    .insert({
+                        username: username,
+                        activity_type: 'exercise_completed',
+                        activity_data: { exerciseId: exerciseId },
+                        timestamp: new Date().toISOString()
+                    });
+            } catch (error) {
+                console.log('Could not log exercise completion:', error);
             }
+        }
+
+        // Load exercise states
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+                    if (localStorage.getItem(checkbox.id) === 'done') {
+                        checkbox.checked = true;
+                        checkbox.closest('.exercise-item').querySelector('.exercise-content').classList.add('exercise-done');
+                    }
+                });
+            }, 1000); // Wait for dynamic content to load
         });
 
-        // Logout functionality
-        function logout() {
-            localStorage.removeItem('currentUsername');
-            currentUser = null;
-            userSessions = [];
-            document.getElementById('loginScreen').style.display = 'flex';
-            document.getElementById('appScreen').style.display = 'none';
-            document.getElementById('loginForm').reset();
+        // Submit feedback
+        async function submitFeedback() {
+            const feedback = document.querySelector('.feedback-textarea').value;
+            const username = localStorage.getItem('username');
+            
+            if (feedback.trim()) {
+                try {
+                    await supabase
+                        .from('user_activities')
+                        .insert({
+                            username: username,
+                            activity_type: 'feedback_submitted',
+                            activity_data: { feedback: feedback },
+                            timestamp: new Date().toISOString()
+                        });
+                    
+                    showNotification('Dziękuję za feedback! Przeczytam go przed kolejnym spotkaniem 📬');
+                    document.querySelector('.feedback-textarea').value = '';
+                } catch (error) {
+                    console.error('Feedback submission error:', error);
+                    showNotification('Nie udało się wysłać. Spróbuj ponownie.');
+                }
+            } else {
+                showNotification('Napisz coś przed wysłaniem 😊');
+            }
         }
 
         // Show notification
-        function showNotification(message, type = 'success') {
+        function showNotification(message) {
             const notification = document.getElementById('notification');
             notification.textContent = message;
-            notification.className = `notification ${type} show`;
+            notification.classList.add('show');
             
             setTimeout(() => {
                 notification.classList.remove('show');
             }, 3000);
         }
+
+        // Close modal on outside click
+        window.onclick = function(event) {
+            const modal = document.getElementById('passwordModal');
+            if (event.target == modal) {
+                closePasswordModal();
+            }
+        }
+
+        // PIN input - only numbers
+        document.querySelectorAll('input[pattern="\\d{4}"]').forEach(input => {
+            input.addEventListener('input', function(e) {
+                this.value = this.value.replace(/[^0-9]/g, '');
+            });
+        });
     </script>
 </body>
 </html>
