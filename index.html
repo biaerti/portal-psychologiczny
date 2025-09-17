@@ -162,21 +162,6 @@
             align-items: center;
         }
 
-        .btn-change-password {
-            padding: 8px 16px;
-            background: #667eea;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 14px;
-            transition: background 0.3s;
-        }
-
-        .btn-change-password:hover {
-            background: #5568d3;
-        }
-
         .btn-logout {
             padding: 8px 20px;
             background: #f0f0f0;
@@ -313,6 +298,13 @@
             to { opacity: 1; }
         }
 
+        /* Loading */
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+
         /* Material Cards */
         .materials-grid {
             display: grid;
@@ -327,7 +319,6 @@
             padding: 25px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.08);
             transition: all 0.3s;
-            cursor: pointer;
         }
 
         .material-card:hover {
@@ -344,6 +335,7 @@
             font-size: 12px;
             font-weight: 600;
             margin-bottom: 15px;
+            text-transform: uppercase;
         }
 
         .material-card h3 {
@@ -352,10 +344,9 @@
             font-size: 18px;
         }
 
-        .material-card p {
+        .material-card .content {
             color: #666;
             line-height: 1.6;
-            margin-bottom: 15px;
         }
 
         /* Exercise Section */
@@ -375,7 +366,7 @@
             gap: 10px;
         }
 
-        .exercise-item {
+        .task-item {
             background: white;
             border-radius: 10px;
             padding: 15px;
@@ -396,220 +387,13 @@
             accent-color: #667eea;
         }
 
-        .exercise-content {
+        .task-content {
             flex: 1;
         }
 
-        .exercise-done {
+        .task-done {
             opacity: 0.7;
             text-decoration: line-through;
-        }
-
-        /* Feedback Section */
-        .feedback-section {
-            background: white;
-            border-radius: 15px;
-            padding: 25px;
-            margin-top: 20px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-        }
-
-        .feedback-section h4 {
-            color: #333;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .feedback-textarea {
-            width: 100%;
-            min-height: 120px;
-            padding: 15px;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            font-family: inherit;
-            font-size: 14px;
-            resize: vertical;
-            transition: border-color 0.3s;
-        }
-
-        .feedback-textarea:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        }
-
-        .btn-submit-feedback {
-            margin-top: 15px;
-            padding: 12px 30px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .btn-submit-feedback:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
-        }
-
-        /* Review CTA */
-        .review-cta {
-            background: linear-gradient(135deg, #f8f9fa 0%, #e8eaf6 100%);
-            border-radius: 15px;
-            padding: 25px;
-            margin-top: 40px;
-            text-align: center;
-            border: 2px solid #667eea;
-        }
-
-        .review-cta h3 {
-            color: #667eea;
-            margin-bottom: 15px;
-            font-size: 20px;
-        }
-
-        .review-cta p {
-            color: #666;
-            margin-bottom: 20px;
-            font-size: 14px;
-            line-height: 1.6;
-        }
-
-        .review-actions {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 20px;
-            flex-wrap: wrap;
-            margin-bottom: 20px;
-        }
-
-        .btn-review {
-            display: inline-block;
-            padding: 12px 30px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            text-decoration: none;
-            border-radius: 10px;
-            font-weight: 600;
-            transition: all 0.3s;
-        }
-
-        .btn-review:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
-        }
-
-        .review-note {
-            margin-top: 15px;
-            font-size: 12px;
-            color: #999;
-            font-style: italic;
-        }
-
-        /* ZnanyLekarz Widget Styling */
-        .psychologist-profile {
-            background: white;
-            border-radius: 15px;
-            padding: 20px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            margin-bottom: 20px;
-            border: 2px solid #f0f4ff;
-        }
-
-        .psychologist-photo {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #667eea;
-        }
-
-        .psychologist-info {
-            flex: 1;
-        }
-
-        .psychologist-info h4 {
-            color: #667eea;
-            font-size: 18px;
-            margin-bottom: 5px;
-        }
-
-        .psychologist-info p {
-            color: #666;
-            font-size: 14px;
-            margin-bottom: 8px;
-        }
-
-        .zl-widget-container {
-            margin-top: 10px;
-        }
-
-        /* Customize ZnanyLekarz widget appearance */
-        #zl-url {
-            display: inline-block;
-            padding: 10px 20px;
-            background: linear-gradient(135deg, #00b894 0%, #00a085 100%);
-            color: white !important;
-            text-decoration: none !important;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 14px;
-            transition: all 0.3s;
-        }
-
-        #zl-url:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 184, 148, 0.3);
-        }
-
-        /* Password Change Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-
-        .modal-content {
-            background: white;
-            padding: 30px;
-            border-radius: 20px;
-            max-width: 400px;
-            width: 90%;
-            animation: slideIn 0.3s ease-out;
-        }
-
-        .modal-header {
-            margin-bottom: 20px;
-        }
-
-        .modal-header h3 {
-            color: #667eea;
-            font-size: 20px;
-        }
-
-        .btn-close-modal {
-            float: right;
-            background: none;
-            border: none;
-            font-size: 24px;
-            cursor: pointer;
-            color: #999;
         }
 
         /* Notification */
@@ -625,6 +409,10 @@
             display: none;
             animation: slideInRight 0.5s ease-out;
             z-index: 1000;
+        }
+
+        .notification.error {
+            background: #f44336;
         }
 
         @keyframes slideInRight {
@@ -663,16 +451,6 @@
                 width: 100%;
                 justify-content: center;
             }
-
-            .psychologist-profile {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .review-actions {
-                flex-direction: column;
-                gap: 15px;
-            }
         }
     </style>
 </head>
@@ -691,7 +469,7 @@
                 
                 <div class="form-group">
                     <label for="password">Hasło (PIN)</label>
-                    <input type="password" id="password" maxlength="4" pattern="\d{4}" required placeholder="4-cyfrowy PIN">
+                    <input type="password" id="password" required placeholder="Twój PIN">
                 </div>
                 
                 <button type="submit" class="btn-login">Zaloguj się</button>
@@ -716,7 +494,6 @@
                     <div class="user-avatar" id="userAvatar">JK</div>
                     <span id="userName">Jan Kowalski</span>
                     <div class="user-actions">
-                        <button class="btn-change-password" onclick="showPasswordModal()">Zmień hasło</button>
                         <button class="btn-logout" onclick="logout()">Wyloguj</button>
                     </div>
                 </div>
@@ -731,186 +508,29 @@
                 
                 <div class="progress-info">
                     <h3>📊 Nad czym pracujemy</h3>
-                    <div class="current-focus">
-                        <strong>Aktualny obszar pracy:</strong> Radzenie sobie ze stresem i napięciem w sytuacjach zawodowych
-                        <br><br>
-                        <strong>Gdzie jesteśmy:</strong> Poznajemy mechanizmy automatycznych myśli i testujemy pierwsze techniki. Każde ćwiczenie przybliża Cię do większej swobody w trudnych sytuacjach.
+                    <div class="current-focus" id="currentFocus">
+                        <strong>Aktualny obszar pracy:</strong> Ładowanie danych...
                     </div>
                 </div>
             </div>
+        </div>
+
+        <!-- Info Box -->
+        <div class="info-box">
+            <h4>📝 Ważna informacja</h4>
+            <p>Dla najlepszej jakości naszej współpracy, spotkania mogą być nagrywane. Służy to wyłącznie tworzeniu spersonalizowanych materiałów i notatek oraz doskonaleniu procesu wsparcia. Wszystkie dane są bezpiecznie przechowywane lokalnie, nie trafiają do żadnych zewnętrznych systemów czy AI. Twoja prywatność jest w pełni chroniona.</p>
         </div>
 
         <!-- Navigation Tabs -->
         <div class="tabs-container">
-            <div class="tabs">
-                <button class="tab active" onclick="switchTab('session0')">📚 Wprowadzenie</button>
-                <button class="tab" onclick="switchTab('session1')">📅 Spotkanie 1</button>
-                <button class="tab" onclick="switchTab('session2')">📅 Spotkanie 2</button>
-                <button class="tab" onclick="switchTab('session3')">📅 Spotkanie 3</button>
+            <div class="tabs" id="tabsContainer">
+                <div class="loading">Ładowanie sesji...</div>
             </div>
         </div>
 
         <!-- Content Area -->
-        <div class="content-area">
-            <!-- Session 0 - Introduction Materials -->
-            <div class="session-content active" id="session0">
-                <div class="materials-grid">
-                    <div class="material-card">
-                        <span class="material-type">WPROWADZENIE</span>
-                        <h3>Jak będziemy pracować?</h3>
-                        <p>Nasze spotkania opierają się na sprawdzonych metodach psychologicznych. Będziemy razem badać to, co Cię blokuje, testować różne rozwiązania i sprawdzać, co działa najlepiej właśnie dla Ciebie.</p>
-                        <div class="exercise-box">
-                            <h4>📝 Czego możesz się spodziewać</h4>
-                            <p>• Konkretna praca nad tym, co chcesz zmienić<br>
-                            • Praktyczne techniki do zastosowania od razu<br>
-                            • Wsparcie bez oceniania<br>
-                            • Skupienie na "tu i teraz" z elementami zrozumienia przeszłości</p>
-                        </div>
-                    </div>
-
-                    <div class="material-card">
-                        <span class="material-type">ZASADY</span>
-                        <h3>Nasza współpraca</h3>
-                        <p><strong>Poufność:</strong> To, o czym rozmawiamy, zostaje między nami. Wyjątkiem są sytuacje zagrożenia życia lub zdrowia.</p>
-                        <p><strong>Twój wkład:</strong> Im bardziej się zaangażujesz, tym lepsze efekty. To jak trening - ja jestem trenerem, ale to Ty wykonujesz ćwiczenia.</p>
-                        <p><strong>Czas:</strong> Spotkania trwają 50 minut. Jeśli nie możesz przyjść, daj znać przynajmniej 24h wcześniej.</p>
-                        <p><strong>Materiały:</strong> Po każdym spotkaniu znajdziesz tu nowe materiały. Sprawdzaj portal w weekendy - aktualizuję go w piątki wieczorem.</p>
-                    </div>
-
-                    <div class="material-card">
-                        <span class="material-type">INFO</span>
-                        <h3>O nagrywaniu spotkań</h3>
-                        <p>Nasze spotkania mogą być nagrywane w celu:</p>
-                        <p>• Tworzenia dokładnych notatek i materiałów dla Ciebie<br>
-                        • Superwizji i podnoszenia jakości mojej pracy<br>
-                        • Analizy postępów i dostosowania metod</p>
-                        <p><strong>Gwarancja bezpieczeństwa:</strong> Nagrania są przechowywane lokalnie, w bezpieczny sposób. Nie trafiają do żadnych zewnętrznych firm, platform czy systemów AI. Masz prawo do wglądu, poprosić o usunięcie nagrania lub odmówić zgody w dowolnym momencie.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Session 1 -->
-            <div class="session-content" id="session1">
-                <div class="materials-grid">
-                    <div class="material-card">
-                        <span class="material-type">SCHEMAT</span>
-                        <h3>Twój model ABC</h3>
-                        <p>Na podstawie naszej rozmowy stworzyliśmy pierwszy szkic tego, jak działają Twoje automatyczne reakcje:</p>
-                        <p><strong>A (Aktywator):</strong> Sytuacja stresowa w pracy<br>
-                        <strong>B (Myśli):</strong> "Muszę być perfekcyjny", "Nie mogę zawieść"<br>
-                        <strong>C (Konsekwencje):</strong> Napięcie, stres, unikanie</p>
-                        <p>To tylko punkt wyjścia - będziemy to rozwijać i modyfikować.</p>
-                    </div>
-
-                    <div class="material-card">
-                        <span class="material-type">TECHNIKA</span>
-                        <h3>Łapanie myśli automatycznych</h3>
-                        <p>Pierwsza technika, którą wypróbujemy. Chodzi o to, żeby zauważyć swoje myśli zanim zdążą wywołać stres.</p>
-                        
-                        <div class="exercise-box">
-                            <h4>✅ Do wypróbowania w tym tygodniu</h4>
-                            <div class="exercise-item">
-                                <div class="checkbox-wrapper">
-                                    <input type="checkbox" id="ex1" onchange="toggleExercise(this)">
-                                </div>
-                                <div class="exercise-content">
-                                    <label for="ex1">Zapisz 3 sytuacje stresowe - co się wydarzyło i co pomyślałeś</label>
-                                </div>
-                            </div>
-                            <div class="exercise-item">
-                                <div class="checkbox-wrapper">
-                                    <input type="checkbox" id="ex2" onchange="toggleExercise(this)">
-                                </div>
-                                <div class="exercise-content">
-                                    <label for="ex2">Przetestuj technikę "STOP" gdy poczujesz napięcie</label>
-                                </div>
-                            </div>
-                            <div class="exercise-item">
-                                <div class="checkbox-wrapper">
-                                    <input type="checkbox" id="ex3" onchange="toggleExercise(this)">
-                                </div>
-                                <div class="exercise-content">
-                                    <label for="ex3">Przeczytaj materiał o myślach automatycznych (PDF w mailu)</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="feedback-section">
-                    <h4>💭 Jak poszło?</h4>
-                    <textarea class="feedback-textarea" placeholder="Napisz jak poszło z ćwiczeniami. Co było łatwe? Co trudne? Jakie masz spostrzeżenia? To pomoże mi lepiej dopasować kolejne materiały."></textarea>
-                    <button class="btn-submit-feedback" onclick="submitFeedback()">Wyślij feedback</button>
-                </div>
-            </div>
-
-            <!-- Session 2 -->
-            <div class="session-content" id="session2">
-                <div class="materials-grid">
-                    <div class="material-card">
-                        <span class="material-type">WKRÓTCE</span>
-                        <h3>Materiały pojawią się po spotkaniu</h3>
-                        <p>Zajrzyj tu w weekend - zazwyczaj aktualizuję portal w piątek wieczorem, żebyś miał czas spokojnie przejrzeć materiały.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Session 3 -->
-            <div class="session-content" id="session3">
-                <div class="materials-grid">
-                    <div class="material-card">
-                        <span class="material-type">WKRÓTCE</span>
-                        <h3>Tu będą materiały z trzeciego spotkania</h3>
-                        <p>Pamiętaj - pracujemy w Twoim tempie. Nie musisz się spieszyć.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Review CTA -->
-            <div class="review-cta">
-                <h3>✨ Podoba Ci się nasza współpraca?</h3>
-                <p>Jeśli czujesz, że nasze spotkania Ci pomagają, będę bardzo wdzięczny za opinię na ZnanyLekarz. To pomoże innym osobom, które szukają wsparcia, znaleźć właściwą pomoc.</p>
-                
-                <!-- Psychologist Profile Section -->
-                <div class="psychologist-profile">
-                    <img src="https://destruktura.pl/bart-zdjecie.jpg" alt="Bartosz Kuniński" class="psychologist-photo">
-                    <div class="psychologist-info">
-                        <h4>Bartosz Kuniński</h4>
-                        <p>Psycholog, Wrocław</p>
-                        <p>Specjalizuję się w terapii poznawczo-behawioralnej (CBT) i pracy z dorosłymi w zakresie lęków, depresji i rozwoju osobistego.</p>
-                    </div>
-                </div>
-                
-                <div class="review-actions">
-                    <a href="https://www.znanylekarz.pl/bartosz-kuninski/psycholog/wroclaw" target="_blank" class="btn-review">Zostaw opinię na ZnanyLekarz</a>
-                    
-
-                </div>
-                
-                <p class="review-note">Twoja opinia naprawdę robi różnicę - dzięki niej więcej osób może znaleźć drogę do lepszego samopoczucia 💜</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Password Change Modal -->
-    <div class="modal" id="passwordModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button class="btn-close-modal" onclick="closePasswordModal()">&times;</button>
-                <h3>Zmiana hasła</h3>
-            </div>
-            <form id="passwordForm">
-                <div class="form-group">
-                    <label for="newPassword">Nowe hasło (4-cyfrowy PIN)</label>
-                    <input type="password" id="newPassword" maxlength="4" pattern="\d{4}" required placeholder="0000">
-                </div>
-                <div class="form-group">
-                    <label for="confirmPassword">Potwierdź nowe hasło</label>
-                    <input type="password" id="confirmPassword" maxlength="4" pattern="\d{4}" required placeholder="0000">
-                </div>
-                <button type="submit" class="btn-login">Zmień hasło</button>
-            </form>
-            <p style="margin-top: 15px; font-size: 13px; color: #666;">Po zmianie hasła tylko Ty będziesz znać dostęp do swoich materiałów.</p>
+        <div class="content-area" id="contentArea">
+            <div class="loading">Ładowanie materiałów...</div>
         </div>
     </div>
 
@@ -919,16 +539,19 @@
         Zapisano pomyślnie!
     </div>
 
-    <!-- ZnanyLekarz Widget Script -->
-    <script>!function($_x,_s,id){var js,fjs=$_x.getElementsByTagName(_s)[0];if(!$_x.getElementById(id)){js = $_x.createElement(_s);js.id = id;js.src = "//platform.docplanner.com/js/widget.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","zl-widget-s");</script>
-
+    <!-- Supabase JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
     <script>
-        // API Configuration for Supabase/n8n
-        const API_CONFIG = {
-            supabaseUrl: 'YOUR_SUPABASE_URL',
-            supabaseKey: 'YOUR_SUPABASE_ANON_KEY',
-            n8nWebhookUrl: 'YOUR_N8N_WEBHOOK_URL'
-        };
+        // Inicjalizacja Supabase
+        const supabase = window.supabase.createClient(
+            'https://oelhskekwwrmezjcanug.supabase.co',
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9lbGhza2Vrd3dybWV6amNhbnVnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc4NjAwNDIsImV4cCI6MjA3MzQzNjA0Mn0.piU6TrGnxoYuLtc4vRGuFCE-0b5lSwg6RDt0ygtvGdU'
+        );
+
+        // Globalne zmienne
+        let currentUser = null;
+        let userSessions = [];
 
         // Login functionality
         document.getElementById('loginForm').addEventListener('submit', async function(e) {
@@ -937,124 +560,244 @@
             const username = document.getElementById('username').value.toLowerCase();
             const password = document.getElementById('password').value;
             
-            // For demo purposes - in production, validate against Supabase
-            if (username && password.length === 4) {
-                // Log first login
-                logFirstLogin(username);
+            if (!username || !password) {
+                showNotification('Wprowadź login i hasło', 'error');
+                return;
+            }
+
+            try {
+                console.log('Próba logowania dla:', username);
                 
-                // Extract name from username (format: imie.nazwisko)
-                const [firstName, lastName] = username.split('.');
-                const displayName = `${capitalize(firstName)} ${capitalize(lastName)}`;
-                
+                // Sprawdź użytkownika w bazie
+                const { data: user, error } = await supabase
+                    .from('profiles')
+                    .select('*')
+                    .eq('username', username)
+                    .single();
+
+                console.log('Wynik zapytania:', { user, error });
+
+                if (error || !user) {
+                    showNotification('Nieprawidłowy login lub hasło', 'error');
+                    return;
+                }
+
+                // Sprawdź PIN 
+                if (password !== user.pin_hash) {
+                    showNotification('Nieprawidłowy PIN', 'error');
+                    return;
+                }
+
                 // Store user info
-                localStorage.setItem('userName', displayName);
-                localStorage.setItem('username', username);
-                localStorage.setItem('userInitials', `${firstName[0]}${lastName[0]}`);
+                currentUser = user;
+                localStorage.setItem('currentUsername', username);
                 
                 // Show app
                 document.getElementById('loginScreen').style.display = 'none';
                 document.getElementById('appScreen').style.display = 'block';
                 
                 // Update user info in header
-                document.getElementById('userName').textContent = displayName;
-                document.getElementById('userAvatar').textContent = `${firstName[0]}${lastName[0]}`.toUpperCase();
-            } else {
-                showNotification('Nieprawidłowy login lub hasło');
-            }
-        });
+                document.getElementById('userName').textContent = user.display_name;
+                const initials = user.display_name.split(' ').map(n => n[0]).join('');
+                document.getElementById('userAvatar').textContent = initials.toUpperCase();
 
-        // Log first login (for confirmation tracking)
-        async function logFirstLogin(username) {
-            const isFirstLogin = !localStorage.getItem(`firstLogin_${username}`);
-            if (isFirstLogin) {
-                localStorage.setItem(`firstLogin_${username}`, new Date().toISOString());
-                
-                // Send confirmation to n8n/Supabase
-                try {
-                    await fetch(API_CONFIG.n8nWebhookUrl, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            action: 'first_login',
-                            username: username,
-                            timestamp: new Date().toISOString()
-                        })
-                    });
-                } catch (error) {
-                    console.log('Could not log first login:', error);
-                }
-            }
-        }
+                // Load user data
+                await loadUserData();
 
-        // Helper function to capitalize names
-        function capitalize(str) {
-            return str ? str.charAt(0).toUpperCase() + str.slice(1) : '';
-        }
-
-        // Check if already logged in
-        window.addEventListener('load', function() {
-            const userName = localStorage.getItem('userName');
-            if (userName) {
-                document.getElementById('loginScreen').style.display = 'none';
-                document.getElementById('appScreen').style.display = 'block';
-                document.getElementById('userName').textContent = userName;
-                document.getElementById('userAvatar').textContent = localStorage.getItem('userInitials').toUpperCase();
-            }
-        });
-
-        // Logout functionality
-        function logout() {
-            localStorage.removeItem('userName');
-            localStorage.removeItem('username');
-            localStorage.removeItem('userInitials');
-            document.getElementById('loginScreen').style.display = 'flex';
-            document.getElementById('appScreen').style.display = 'none';
-            document.getElementById('loginForm').reset();
-        }
-
-        // Password change modal
-        function showPasswordModal() {
-            document.getElementById('passwordModal').style.display = 'flex';
-        }
-
-        function closePasswordModal() {
-            document.getElementById('passwordModal').style.display = 'none';
-            document.getElementById('passwordForm').reset();
-        }
-
-        // Password change form
-        document.getElementById('passwordForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const newPassword = document.getElementById('newPassword').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
-            
-            if (newPassword !== confirmPassword) {
-                showNotification('Hasła nie są identyczne!');
-                return;
-            }
-            
-            // In production, send to Supabase
-            try {
-                await fetch(API_CONFIG.n8nWebhookUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        action: 'change_password',
-                        username: localStorage.getItem('username'),
-                        newPassword: newPassword
-                    })
-                });
-                
-                showNotification('Hasło zostało zmienione! 🔐');
-                closePasswordModal();
             } catch (error) {
-                showNotification('Nie udało się zmienić hasła. Spróbuj ponownie.');
+                console.error('Login error:', error);
+                showNotification('Błąd logowania. Spróbuj ponownie.', 'error');
             }
         });
+
+        // Load user data
+        async function loadUserData() {
+            try {
+                console.log('Ładowanie danych dla użytkownika:', currentUser.id);
+                
+                // Load sessions with materials and tasks
+                const { data: sessions, error: sessionsError } = await supabase
+                    .from('sessions')
+                    .select(`
+                        *,
+                        materials(*),
+                        tasks(*)
+                    `)
+                    .eq('patient_id', currentUser.id)
+                    .order('session_no', { ascending: true });
+
+                console.log('Sesje:', { sessions, sessionsError });
+
+                if (sessionsError) {
+                    console.error('Error loading sessions:', sessionsError);
+                    showNotification('Błąd ładowania sesji', 'error');
+                    return;
+                }
+
+                userSessions = sessions || [];
+                renderTabs();
+                renderContent();
+
+            } catch (error) {
+                console.error('Error loading user data:', error);
+                showNotification('Błąd ładowania danych', 'error');
+            }
+        }
+
+        // Render tabs
+        function renderTabs() {
+            const tabsContainer = document.getElementById('tabsContainer');
+            
+            let tabsHTML = `
+                <button class="tab active" onclick="switchTab('intro')">📚 Wprowadzenie</button>
+            `;
+
+            // Dodaj tabs dla sesji
+            userSessions.forEach(session => {
+                tabsHTML += `
+                    <button class="tab" onclick="switchTab('session-${session.session_no}')">
+                        📅 Spotkanie ${session.session_no}
+                    </button>
+                `;
+            });
+
+            if (userSessions.length === 0) {
+                tabsHTML += '<div class="loading">Brak sesji. Materiały pojawią się po pierwszym spotkaniu.</div>';
+            }
+
+            tabsContainer.innerHTML = tabsHTML;
+        }
+
+        // Render content
+        function renderContent() {
+            const contentArea = document.getElementById('contentArea');
+            
+            let contentHTML = `
+                <!-- Introduction Tab -->
+                <div class="session-content active" id="intro">
+                    ${renderIntroduction()}
+                </div>
+            `;
+
+            // Render session content
+            userSessions.forEach(session => {
+                contentHTML += `
+                    <div class="session-content" id="session-${session.session_no}">
+                        ${renderSession(session)}
+                    </div>
+                `;
+            });
+
+            contentArea.innerHTML = contentHTML;
+        }
+
+        // Render introduction
+        function renderIntroduction() {
+            return `
+                <div class="materials-grid">
+                    <div class="material-card">
+                        <span class="material-type">WPROWADZENIE</span>
+                        <h3>Jak będziemy pracować?</h3>
+                        <div class="content">
+                            <p>Nasze spotkania opierają się na sprawdzonych metodach psychologicznych. Będziemy razem badać to, co Cię blokuje, testować różne rozwiązania i sprawdzać, co działa najlepiej właśnie dla Ciebie.</p>
+                            <div class="exercise-box">
+                                <h4>📝 Czego możesz się spodziewać</h4>
+                                <p>• Konkretna praca nad tym, co chcesz zmienić<br>
+                                • Praktyczne techniki do zastosowania od razu<br>
+                                • Wsparcie bez oceniania<br>
+                                • Skupienie na "tu i teraz" z elementami zrozumienia przeszłości</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="material-card">
+                        <span class="material-type">ZASADY</span>
+                        <h3>Nasza współpraca</h3>
+                        <div class="content">
+                            <p><strong>Poufność:</strong> To, o czym rozmawiamy, zostaje między nami. Wyjątkiem są sytuacje zagrożenia życia lub zdrowia.</p>
+                            <p><strong>Twój wkład:</strong> Im bardziej się zaangażujesz, tym lepsze efekty. To jak trening - ja jestem trenerem, ale to Ty wykonujesz ćwiczenia.</p>
+                            <p><strong>Czas:</strong> Spotkania trwają 50 minut. Jeśli nie możesz przyjść, daj znać przynajmniej 24h wcześniej.</p>
+                            <p><strong>Materiały:</strong> Po każdym spotkaniu znajdziesz tu nowe materiały. Sprawdzaj portal w weekendy - aktualizuję go w piątki wieczorem.</p>
+                        </div>
+                    </div>
+
+                    <div class="material-card">
+                        <span class="material-type">INFO</span>
+                        <h3>O nagrywaniu spotkań</h3>
+                        <div class="content">
+                            <p>Nasze spotkania mogą być nagrywane w celu:</p>
+                            <p>• Tworzenia dokładnych notatek i materiałów dla Ciebie<br>
+                            • Superwizji i podnoszenia jakości mojej pracy<br>
+                            • Analizy postępów i dostosowania metod</p>
+                            <p><strong>Gwarancja bezpieczeństwa:</strong> Nagrania są przechowywane lokalnie, w bezpieczny sposób. Nie trafiają do żadnych zewnętrznych firm, platform czy systemów AI. Masz prawo do wglądu, poprosić o usunięcie nagrania lub odmówić zgody w dowolnym momencie.</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Render session
+        function renderSession(session) {
+            let html = `<div class="materials-grid">`;
+
+            // Materials
+            if (session.materials && session.materials.length > 0) {
+                session.materials.forEach(material => {
+                    html += `
+                        <div class="material-card">
+                            <span class="material-type">${material.kind}</span>
+                            <h3>${material.heading}</h3>
+                            <div class="content">
+                                ${material.body_md ? material.body_md.replace(/\n/g, '<br>') : ''}
+                            </div>
+                        </div>
+                    `;
+                });
+            } else {
+                html += `
+                    <div class="material-card">
+                        <span class="material-type">INFO</span>
+                        <h3>Materiały w przygotowaniu</h3>
+                        <div class="content">
+                            <p>Materiały z tego spotkania pojawią się wkrótce. Sprawdź portal w weekend.</p>
+                        </div>
+                    </div>
+                `;
+            }
+
+            html += `</div>`;
+
+            // Tasks
+            if (session.tasks && session.tasks.length > 0) {
+                html += `
+                    <div class="exercise-box">
+                        <h4>✅ Do wypróbowania w tym tygodniu</h4>
+                `;
+                
+                session.tasks.forEach(task => {
+                    html += `
+                        <div class="task-item">
+                            <div class="checkbox-wrapper">
+                                <input type="checkbox" id="task-${task.id}" onchange="toggleTask(this, ${task.id})">
+                            </div>
+                            <div class="task-content">
+                                <label for="task-${task.id}">
+                                    <strong>${task.title}</strong>
+                                    ${task.description ? `<br><small>${task.description}</small>` : ''}
+                                </label>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                html += `</div>`;
+            }
+
+            return html;
+        }
 
         // Tab switching
-        function switchTab(sessionId) {
+        function switchTab(tabId) {
             // Update tabs
             document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
             event.target.classList.add('active');
@@ -1063,108 +806,96 @@
             document.querySelectorAll('.session-content').forEach(content => {
                 content.classList.remove('active');
             });
-            document.getElementById(sessionId).classList.add('active');
+            
+            const targetContent = document.getElementById(tabId);
+            if (targetContent) {
+                targetContent.classList.add('active');
+            }
         }
 
-        // Exercise toggle
-        function toggleExercise(checkbox) {
-            const exerciseItem = checkbox.closest('.exercise-item');
-            const content = exerciseItem.querySelector('.exercise-content');
+        // Task toggle
+        async function toggleTask(checkbox, taskId) {
+            const taskItem = checkbox.closest('.task-item');
+            const content = taskItem.querySelector('.task-content');
             
             if (checkbox.checked) {
-                content.classList.add('exercise-done');
+                content.classList.add('task-done');
                 showNotification('Świetnie! Zadanie wykonane 🎉');
                 
-                // Save state
-                localStorage.setItem(checkbox.id, 'done');
-                
-                // Log to backend
-                logExerciseCompletion(checkbox.id);
-            } else {
-                content.classList.remove('exercise-done');
-                localStorage.removeItem(checkbox.id);
-            }
-        }
-
-        // Log exercise completion
-        async function logExerciseCompletion(exerciseId) {
-            try {
-                await fetch(API_CONFIG.n8nWebhookUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        action: 'exercise_completed',
-                        username: localStorage.getItem('username'),
-                        exerciseId: exerciseId,
-                        timestamp: new Date().toISOString()
-                    })
-                });
-            } catch (error) {
-                console.log('Could not log exercise completion:', error);
-            }
-        }
-
-        // Load exercise states
-        window.addEventListener('load', function() {
-            document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
-                if (localStorage.getItem(checkbox.id) === 'done') {
-                    checkbox.checked = true;
-                    checkbox.closest('.exercise-item').querySelector('.exercise-content').classList.add('exercise-done');
+                // Save to database
+                try {
+                    await supabase
+                        .from('completed_tasks')
+                        .upsert({
+                            profile_id: currentUser.id,
+                            task_id: taskId
+                        });
+                } catch (error) {
+                    console.error('Error saving completed task:', error);
                 }
-            });
+            } else {
+                content.classList.remove('task-done');
+                
+                // Remove from database
+                try {
+                    await supabase
+                        .from('completed_tasks')
+                        .delete()
+                        .eq('profile_id', currentUser.id)
+                        .eq('task_id', taskId);
+                } catch (error) {
+                    console.error('Error removing completed task:', error);
+                }
+            }
+        }
+
+        // Check if already logged in
+        window.addEventListener('load', async function() {
+            const savedUsername = localStorage.getItem('currentUsername');
+            if (savedUsername) {
+                try {
+                    const { data: user, error } = await supabase
+                        .from('profiles')
+                        .select('*')
+                        .eq('username', savedUsername)
+                        .single();
+
+                    if (user && !error) {
+                        currentUser = user;
+                        document.getElementById('loginScreen').style.display = 'none';
+                        document.getElementById('appScreen').style.display = 'block';
+                        document.getElementById('userName').textContent = user.display_name;
+                        const initials = user.display_name.split(' ').map(n => n[0]).join('');
+                        document.getElementById('userAvatar').textContent = initials.toUpperCase();
+                        
+                        await loadUserData();
+                    }
+                } catch (error) {
+                    console.error('Auto-login error:', error);
+                }
+            }
         });
 
-        // Submit feedback
-        async function submitFeedback() {
-            const feedback = document.querySelector('.feedback-textarea').value;
-            if (feedback.trim()) {
-                try {
-                    await fetch(API_CONFIG.n8nWebhookUrl, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            action: 'submit_feedback',
-                            username: localStorage.getItem('username'),
-                            feedback: feedback,
-                            timestamp: new Date().toISOString()
-                        })
-                    });
-                    
-                    showNotification('Dziękuję za feedback! Przeczytam go przed kolejnym spotkaniem 📬');
-                    document.querySelector('.feedback-textarea').value = '';
-                } catch (error) {
-                    showNotification('Nie udało się wysłać. Spróbuj ponownie.');
-                }
-            } else {
-                showNotification('Napisz coś przed wysłaniem 😊');
-            }
+        // Logout functionality
+        function logout() {
+            localStorage.removeItem('currentUsername');
+            currentUser = null;
+            userSessions = [];
+            document.getElementById('loginScreen').style.display = 'flex';
+            document.getElementById('appScreen').style.display = 'none';
+            document.getElementById('loginForm').reset();
         }
 
         // Show notification
-        function showNotification(message) {
+        function showNotification(message, type = 'success') {
             const notification = document.getElementById('notification');
             notification.textContent = message;
-            notification.classList.add('show');
+            notification.className = `notification ${type} show`;
             
             setTimeout(() => {
                 notification.classList.remove('show');
             }, 3000);
         }
-
-        // Close modal on outside click
-        window.onclick = function(event) {
-            const modal = document.getElementById('passwordModal');
-            if (event.target == modal) {
-                closePasswordModal();
-            }
-        }
-
-        // PIN input - only numbers
-        document.querySelectorAll('input[pattern="\\d{4}"]').forEach(input => {
-            input.addEventListener('input', function(e) {
-                this.value = this.value.replace(/[^0-9]/g, '');
-            });
-        });
     </script>
 </body>
 </html>
