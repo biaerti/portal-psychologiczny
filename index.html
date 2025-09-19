@@ -1154,26 +1154,6 @@
             return names.map(name => name[0]).join('').toUpperCase();
         }
 
-/*         // Log first login
-        async function logFirstLogin(username) {
-            const isFirstLogin = !localStorage.getItem(`firstLogin_${username}`);
-            if (isFirstLogin) {
-                localStorage.setItem(`firstLogin_${username}`, new Date().toISOString());
-                
-                // Log to Supabase
-                try {
-                    await supabase
-                        .from('user_activities')
-                        .insert({
-                            username: username,
-                            activity_type: 'first_login',
-                            timestamp: new Date().toISOString()
-                        });
-                } catch (error) {
-                    console.log('Could not log first login:', error);
-                }
-            }
-        } */
 
         // Helper function to capitalize names
         function capitalize(str) {
@@ -1280,22 +1260,6 @@
             }
         }
 
-        /* // Log exercise completion
-        async function logExerciseCompletion(exerciseId) {
-            try {
-                const username = localStorage.getItem('username');
-                await supabase
-                    .from('user_activities')
-                    .insert({
-                        username: username,
-                        activity_type: 'exercise_completed',
-                        activity_data: { exerciseId: exerciseId },
-                        timestamp: new Date().toISOString()
-                    });
-            } catch (error) {
-                console.log('Could not log exercise completion:', error);
-            }
-        } */
 
         // Load exercise states
         window.addEventListener('load', function() {
