@@ -1309,32 +1309,48 @@
             }, 1000); // Wait for dynamic content to load
         });
 
-        // Submit feedback
-        async function submitFeedback() {
-            const feedback = document.querySelector('.feedback-textarea').value;
-            const username = localStorage.getItem('username');
-            
-            if (feedback.trim()) {
-                try {
-                    await supabase
-                        .from('user_activities')
-                        .insert({
-                            username: username,
-                            activity_type: 'feedback_submitted',
-                            activity_data: { feedback: feedback },
-                            timestamp: new Date().toISOString()
-                        });
-                    
-                    showNotification('Dziękuję za feedback! Przeczytam go przed kolejnym spotkaniem 📬');
-                    document.querySelector('.feedback-textarea').value = '';
-                } catch (error) {
-                    console.error('Feedback submission error:', error);
-                    showNotification('Nie udało się wysłać. Spróbuj ponownie.');
-                }
+       // Submit feedback - zaktualizowana wersja
+async function submitFeedback() {
+    const feedback = document.querySelector('.feedback-textarea').value;
+    const username = localStorage.getItem('username');
+    
+    if (feedback.trim()) {
+        try {
+            // Wywołaj Edge Function zamiast bezpośredniego zapisu do Supabase
+            const response = await fetch('https://oelhskekwwrmezjcanug.supabase.co/functions/v1/patient-feedback', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${API_CONFIG.supabaseKey}`
+                },
+                body: JSON.stringify({
+                    username: username,
+                    feedback: feedback,
+                    sessionNo: getCurrentSessionNo() // funkcja do określenia aktualnej sesji
+                })
+            });
+
+            if (response.ok) {
+                showNotification('Dziękuję za feedback! Przeczytam go przed kolejnym spotkaniem 📬');
+                document.querySelector('.feedback-textarea').value = '';
             } else {
-                showNotification('Napisz coś przed wysłaniem 😊');
+                throw new Error('Nie udało się wysłać feedbacku');
             }
+        } catch (error) {
+            console.error('Feedback submission error:', error);
+            showNotification('Nie udało się wysłać. Spróbuj ponownie.');
         }
+    } else {
+        showNotification('Napisz coś przed wysłaniem 😊');
+    }
+}
+
+// Pomocnicza funkcja do określenia numeru sesji
+function getCurrentSessionNo() {
+    const activeTab = document.querySelector('.tab.active');
+    const sessionId = activeTab?.getAttribute('onclick')?.match(/session(\d+)/)?.[1];
+    return sessionId ? parseInt(sessionId) : 1;
+}
 
         // Show notification
         function showNotification(message) {
