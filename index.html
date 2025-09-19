@@ -232,28 +232,6 @@
             margin-top: 10px;
         }
 
-        /* Info Box */
-        .info-box {
-            background: #fff8e1;
-            border-left: 4px solid #ffc107;
-            border-radius: 10px;
-            padding: 20px;
-            margin: 20px auto;
-            max-width: 1200px;
-        }
-
-        .info-box h4 {
-            color: #f57c00;
-            margin-bottom: 10px;
-            font-size: 16px;
-        }
-
-        .info-box p {
-            color: #666;
-            font-size: 14px;
-            line-height: 1.6;
-        }
-
         /* Navigation Tabs */
         .tabs-container {
             max-width: 1200px;
@@ -457,28 +435,6 @@
             box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
         }
 
-        /* Review CTA */
-        .review-cta {
-            background: linear-gradient(135deg, #f8f9fa 0%, #e8eaf6 100%);
-            border-radius: 15px;
-            padding: 25px;
-            margin-top: 40px;
-            border: 2px solid #667eea;
-        }
-
-        .review-cta h3 {
-            color: #667eea;
-            margin-bottom: 15px;
-            font-size: 20px;
-        }
-
-        .review-cta p {
-            color: #666;
-            margin-bottom: 20px;
-            font-size: 14px;
-            line-height: 1.6;
-        }
-
         /* ZnanyLekarz Widget Section */
         .znanylekarz-section {
             background: white;
@@ -496,14 +452,6 @@
             gap: 20px;
             margin-bottom: 20px;
             flex-wrap: wrap;
-        }
-
-        .doctor-photo {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #667eea;
         }
 
         .doctor-details h4 {
@@ -550,7 +498,6 @@
             font-style: italic;
         }
 
-        /* ZnanyLekarz widget custom styling */
         #zl-url {
             display: inline-block !important;
             margin: 5px !important;
@@ -627,7 +574,6 @@
             display: block;
         }
 
-        /* Loading State */
         .loading {
             color: #667eea;
             font-style: italic;
@@ -676,12 +622,12 @@
             <form id="loginForm">
                 <div class="form-group">
                     <label for="username">Login</label>
-                    <input type="text" id="username" required placeholder="imie.nazwisko">
+                    <input type="text" id="username" required placeholder="imie.nazwisko" autocomplete="username">
                 </div>
                 
                 <div class="form-group">
                     <label for="password">Hasło (PIN)</label>
-                    <input type="password" id="password" maxlength="4" pattern="\d{4}" required placeholder="4-cyfrowy PIN">
+                    <input type="password" id="password" maxlength="4" pattern="\d{4}" required placeholder="4-cyfrowy PIN" autocomplete="current-password">
                 </div>
                 
                 <button type="submit" class="btn-login">Zaloguj się</button>
@@ -841,11 +787,11 @@
             <form id="passwordForm">
                 <div class="form-group">
                     <label for="newPassword">Nowe hasło (4-cyfrowy PIN)</label>
-                    <input type="password" id="newPassword" maxlength="4" pattern="\d{4}" required placeholder="0000">
+                    <input type="password" id="newPassword" maxlength="4" pattern="\d{4}" required placeholder="0000" autocomplete="new-password">
                 </div>
                 <div class="form-group">
                     <label for="confirmPassword">Potwierdź nowe hasło</label>
-                    <input type="password" id="confirmPassword" maxlength="4" pattern="\d{4}" required placeholder="0000">
+                    <input type="password" id="confirmPassword" maxlength="4" pattern="\d{4}" required placeholder="0000" autocomplete="new-password">
                 </div>
                 <button type="submit" class="btn-login">Zmień hasło</button>
             </form>
@@ -862,19 +808,15 @@
     <script>!function($_x,_s,id){var js,fjs=$_x.getElementsByTagName(_s)[0];if(!$_x.getElementById(id)){js = $_x.createElement(_s);js.id = id;js.src = "//platform.docplanner.com/js/widget.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","zl-widget-s");</script>
 
     <script>
-            // API Configuration 
-            const API_CONFIG = {
+        // API Configuration 
+        const API_CONFIG = {
             supabaseUrl: 'https://oelhskekwwrmezjcanug.supabase.co',
-            // UŻYJ TEGO (twój poprawny anon key dla oelhskekwwrmezjcanug):
-            supabaseKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9lbGhza2Vrd3dybWV6amNhbnVnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc4NjAwNDIsImV4cCI6MjA3MzQzNjA0Mn0.piU6TrGnxoYuLtc4vRGuFCE-0b5lSwg6RDt0ygtvGdU',
-            n8nWebhookUrl: 'YOUR_N8N_WEBHOOK_URL'
-            };
-
+            supabaseKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9lbGhza2Vrd3dybWV6amNhbnVnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc4NjAwNDIsImV4cCI6MjA3MzQzNjA0Mn0.piU6TrGnxoYuLtc4vRGuFCE-0b5lSwg6RDt0ygtvGdU'
+        };
 
         // Initialize Supabase client
         let supabase;
         if (typeof window !== 'undefined') {
-            // Load Supabase client
             const script = document.createElement('script');
             script.src = 'https://unpkg.com/@supabase/supabase-js@2';
             script.onload = () => {
@@ -1113,9 +1055,9 @@
                     showNotification('Nieprawidłowy login lub hasło');
                     return;
                 }
-/*  */
-                // Log first login
-               // await logFirstLogin(username);
+
+                // Log first login (pusta funkcja - bez zapisywania do bazy)
+                logFirstLogin(username);
                 
                 // Extract name from display_name or username
                 const displayName = profile.display_name || formatDisplayName(username);
@@ -1154,6 +1096,14 @@
             return names.map(name => name[0]).join('').toUpperCase();
         }
 
+        // Pusta funkcja - nie zapisuje do bazy (brak tabeli user_activities)
+        function logFirstLogin(username) {
+            const isFirstLogin = !localStorage.getItem(`firstLogin_${username}`);
+            if (isFirstLogin) {
+                localStorage.setItem(`firstLogin_${username}`, new Date().toISOString());
+                console.log('First login logged locally:', username);
+            }
+        }
 
         // Helper function to capitalize names
         function capitalize(str) {
@@ -1219,7 +1169,7 @@
 
                 if (error) throw error;
                 
-                showNotification('Hasło zostało zmienione! 🔐');
+                showNotification('Hasło zostało zmienione!');
                 closePasswordModal();
             } catch (error) {
                 console.error('Password change error:', error);
@@ -1247,19 +1197,15 @@
             
             if (checkbox.checked) {
                 content.classList.add('exercise-done');
-                showNotification('Świetnie! Zadanie wykonane 🎉');
+                showNotification('Świetnie! Zadanie wykonane');
                 
                 // Save state
                 localStorage.setItem(checkbox.id, 'done');
-                
-                // Log to backend
-                logExerciseCompletion(checkbox.id);
             } else {
                 content.classList.remove('exercise-done');
                 localStorage.removeItem(checkbox.id);
             }
         }
-
 
         // Load exercise states
         window.addEventListener('load', function() {
@@ -1273,48 +1219,48 @@
             }, 1000); // Wait for dynamic content to load
         });
 
-// Submit feedback - uproszczona wersja
-async function submitFeedback() {
-    const feedback = document.querySelector('.feedback-textarea').value;
-    const username = localStorage.getItem('username');
-    
-    if (feedback.trim()) {
-        try {
-            const response = await fetch('https://n8n-destruktura-u56766.vm.elestio.app/webhook-test/a340811d-28da-488c-9c99-add5f0c32f4a', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    timestamp: new Date().toISOString(),
-                    username: username,
-                    session_no: getCurrentSessionNo(),
-                    feedback_text: feedback,
-                    source: 'portal'
-                })
-            });
+        // Submit feedback - uproszczona wersja
+        async function submitFeedback() {
+            const feedback = document.querySelector('.feedback-textarea').value;
+            const username = localStorage.getItem('username');
+            
+            if (feedback.trim()) {
+                try {
+                    const response = await fetch('https://n8n-destruktura-u56766.vm.elestio.app/webhook-test/a340811d-28da-488c-9c99-add5f0c32f4a', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            timestamp: new Date().toISOString(),
+                            username: username,
+                            session_no: getCurrentSessionNo(),
+                            feedback_text: feedback,
+                            source: 'portal'
+                        })
+                    });
 
-            if (response.ok) {
-                showNotification('Dziękuję za feedback! Przeczytam go przed kolejnym spotkaniem');
-                document.querySelector('.feedback-textarea').value = '';
+                    if (response.ok) {
+                        showNotification('Dziękuję za feedback! Przeczytam go przed kolejnym spotkaniem');
+                        document.querySelector('.feedback-textarea').value = '';
+                    } else {
+                        showNotification('Nie udało się wysłać. Spróbuj ponownie.');
+                    }
+                } catch (error) {
+                    console.error('Feedback error:', error);
+                    showNotification('Błąd połączenia. Sprawdź internet i spróbuj ponownie.');
+                }
             } else {
-                showNotification('Nie udało się wysłać. Spróbuj ponownie.');
+                showNotification('Napisz coś przed wysłaniem');
             }
-        } catch (error) {
-            console.error('Feedback error:', error);
-            showNotification('Błąd połączenia. Sprawdź internet i spróbuj ponownie.');
         }
-    } else {
-        showNotification('Napisz coś przed wysłaniem');
-    }
-}
 
-// Pomocnicza funkcja do określenia numeru sesji
-function getCurrentSessionNo() {
-    const activeTab = document.querySelector('.tab.active');
-    const sessionId = activeTab?.getAttribute('onclick')?.match(/session(\d+)/)?.[1];
-    return sessionId ? parseInt(sessionId) : 1;
-}
+        // Pomocnicza funkcja do określenia numeru sesji
+        function getCurrentSessionNo() {
+            const activeTab = document.querySelector('.tab.active');
+            const sessionId = activeTab?.getAttribute('onclick')?.match(/session(\d+)/)?.[1];
+            return sessionId ? parseInt(sessionId) : 1;
+        }
 
         // Show notification
         function showNotification(message) {
