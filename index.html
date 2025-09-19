@@ -1309,39 +1309,39 @@
             }, 1000); // Wait for dynamic content to load
         });
 
-       // Submit feedback - zaktualizowana wersja
+// Submit feedback - uproszczona wersja
 async function submitFeedback() {
     const feedback = document.querySelector('.feedback-textarea').value;
     const username = localStorage.getItem('username');
     
     if (feedback.trim()) {
         try {
-            // Wywołaj Edge Function zamiast bezpośredniego zapisu do Supabase
-            const response = await fetch('https://oelhskekwwrmezjcanug.supabase.co/functions/v1/patient-feedback', {
+            const response = await fetch('https://n8n-destruktura-u56766.vm.elestio.app/webhook-test/a340811d-28da-488c-9c99-add5f0c32f4a', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${API_CONFIG.supabaseKey}`
+                    'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
+                    timestamp: new Date().toISOString(),
                     username: username,
-                    feedback: feedback,
-                    sessionNo: getCurrentSessionNo() // funkcja do określenia aktualnej sesji
+                    session_no: getCurrentSessionNo(),
+                    feedback_text: feedback,
+                    source: 'portal'
                 })
             });
 
             if (response.ok) {
-                showNotification('Dziękuję za feedback! Przeczytam go przed kolejnym spotkaniem 📬');
+                showNotification('Dziękuję za feedback! Przeczytam go przed kolejnym spotkaniem');
                 document.querySelector('.feedback-textarea').value = '';
             } else {
-                throw new Error('Nie udało się wysłać feedbacku');
+                showNotification('Nie udało się wysłać. Spróbuj ponownie.');
             }
         } catch (error) {
-            console.error('Feedback submission error:', error);
-            showNotification('Nie udało się wysłać. Spróbuj ponownie.');
+            console.error('Feedback error:', error);
+            showNotification('Błąd połączenia. Sprawdź internet i spróbuj ponownie.');
         }
     } else {
-        showNotification('Napisz coś przed wysłaniem 😊');
+        showNotification('Napisz coś przed wysłaniem');
     }
 }
 
