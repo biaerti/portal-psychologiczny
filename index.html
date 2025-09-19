@@ -1113,7 +1113,7 @@
                     showNotification('Nieprawidłowy login lub hasło');
                     return;
                 }
-
+/*  */
                 // Log first login
                 await logFirstLogin(username);
                 
@@ -1154,7 +1154,7 @@
             return names.map(name => name[0]).join('').toUpperCase();
         }
 
-        // Log first login
+/*         // Log first login
         async function logFirstLogin(username) {
             const isFirstLogin = !localStorage.getItem(`firstLogin_${username}`);
             if (isFirstLogin) {
@@ -1173,7 +1173,7 @@
                     console.log('Could not log first login:', error);
                 }
             }
-        }
+        } */
 
         // Helper function to capitalize names
         function capitalize(str) {
@@ -1280,7 +1280,7 @@
             }
         }
 
-        // Log exercise completion
+        /* // Log exercise completion
         async function logExerciseCompletion(exerciseId) {
             try {
                 const username = localStorage.getItem('username');
@@ -1295,7 +1295,7 @@
             } catch (error) {
                 console.log('Could not log exercise completion:', error);
             }
-        }
+        } */
 
         // Load exercise states
         window.addEventListener('load', function() {
