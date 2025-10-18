@@ -938,36 +938,36 @@
         }
 
         // Create material card element
-        function createMaterialCard(material) {
-        const card = document.createElement('div');
-        card.className = 'material-card';
+    function createMaterialCard(material) {
+    const card = document.createElement('div');
+    card.className = 'material-card';
 
-        const typeSpan = document.createElement('span');
-        typeSpan.className = 'material-type';
-        typeSpan.textContent = (material.kind || 'info').toUpperCase();
+    const typeSpan = document.createElement('span');
+    typeSpan.className = 'material-type';
+    typeSpan.textContent = (material.kind || 'info').toUpperCase();
 
-        const heading = document.createElement('h3');
-        heading.textContent = material.heading || 'Bez tytułu';
+    const heading = document.createElement('h3');
+    heading.textContent = material.heading || 'Bez tytułu';
 
-        const content = document.createElement('div');
-        content.innerHTML = markdownToHtml(material.body_md || '');
+    const content = document.createElement('div');
+    content.innerHTML = markdownToHtml(material.body_md || '');
 
-        card.appendChild(typeSpan);
-        card.appendChild(heading);
-        card.appendChild(content);
+    card.appendChild(typeSpan);
+    card.appendChild(heading);
+    card.appendChild(content);
 
-        if (material.link_url) {
-            const a = document.createElement('a');
-            a.href = material.link_url;
-            a.target = '_blank';
-            a.rel = 'noopener noreferrer';
-            a.className = 'btn-review'; // już masz ładny styl
-            a.textContent = material.link_label || 'Otwórz materiał';
-            card.appendChild(a);
-        }
+    if (material.link_url) {
+        const a = document.createElement('a');
+        a.href = material.link_url;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        a.className = 'btn-review'; // już masz ładny styl
+        a.textContent = material.link_label || 'Otwórz materiał';
+        card.appendChild(a);
+    }
 
-        return card;
-        }
+    return card;
+    }
 
 
         // Create tasks card element
