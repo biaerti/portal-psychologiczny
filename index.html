@@ -727,6 +727,66 @@
 
             <!-- Dynamic content for sessions will be loaded here -->
             <div class="session-content" id="session1">
+                <!-- Dodaj to w sekcji session content, przed materials-grid -->
+<div class="session-content" id="session1">
+  <!-- Pasek materiałów (jeśli są) -->
+  <div class="materials-bar" id="session1-materials-bar" style="display: none;">
+    <div class="materials-bar-content">
+      <span class="materials-label">📚 Materiały:</span>
+      <div class="materials-links"></div>
+    </div>
+  </div>
+  
+  <div class="materials-grid" id="session1-materials">
+    <!-- Kafelki -->
+  </div>
+</div>
+
+<style>
+.materials-bar {
+  background: linear-gradient(135deg, #f0f4ff 0%, #e6ecff 100%);
+  border-radius: 10px;
+  padding: 12px 20px;
+  margin-bottom: 20px;
+  border-left: 3px solid #667eea;
+}
+
+.materials-bar-content {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.materials-label {
+  font-weight: 600;
+  color: #667eea;
+  white-space: nowrap;
+}
+
+.materials-links {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.materials-links a {
+  padding: 5px 12px;
+  background: white;
+  border-radius: 6px;
+  color: #667eea;
+  text-decoration: none;
+  font-size: 14px;
+  transition: all 0.3s;
+  border: 1px solid #e0e0e0;
+}
+
+.materials-links a:hover {
+  background: #667eea;
+  color: white;
+  transform: translateY(-1px);
+}
+</style>
                 <div class="materials-grid" id="session1-materials">
                     <!-- Dynamic content from Supabase -->
                 </div>
@@ -1287,6 +1347,29 @@
                 this.value = this.value.replace(/[^0-9]/g, '');
             });
         });
+
+        // Dodaj w funkcji renderSessions()
+function renderMaterialsBar(session) {
+  if (session.materials_bar && session.materials_bar.length > 0) {
+    const barContainer = document.getElementById(`session${session.session_no}-materials-bar`);
+    if (barContainer) {
+      const linksContainer = barContainer.querySelector('.materials-links');
+      linksContainer.innerHTML = '';
+      
+      session.materials_bar.forEach(material => {
+        const link = document.createElement('a');
+        link.href = material.link;
+        link.target = '_blank';
+        link.textContent = material.name;
+        linksContainer.appendChild(link);
+      });
+      
+      barContainer.style.display = 'block';
+    }
+  }
+}
     </script>
+
+    
 </body>
 </html>
