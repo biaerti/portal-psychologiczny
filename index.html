@@ -939,25 +939,36 @@
 
         // Create material card element
         function createMaterialCard(material) {
-            const card = document.createElement('div');
-            card.className = 'material-card';
-            
-            const typeSpan = document.createElement('span');
-            typeSpan.className = 'material-type';
-            typeSpan.textContent = (material.kind || 'info').toUpperCase();
-            
-            const heading = document.createElement('h3');
-            heading.textContent = material.heading || 'Bez tytułu';
-            
-            const content = document.createElement('div');
-            content.innerHTML = markdownToHtml(material.body_md || '');
-            
-            card.appendChild(typeSpan);
-            card.appendChild(heading);
-            card.appendChild(content);
-            
-            return card;
+        const card = document.createElement('div');
+        card.className = 'material-card';
+
+        const typeSpan = document.createElement('span');
+        typeSpan.className = 'material-type';
+        typeSpan.textContent = (material.kind || 'info').toUpperCase();
+
+        const heading = document.createElement('h3');
+        heading.textContent = material.heading || 'Bez tytułu';
+
+        const content = document.createElement('div');
+        content.innerHTML = markdownToHtml(material.body_md || '');
+
+        card.appendChild(typeSpan);
+        card.appendChild(heading);
+        card.appendChild(content);
+
+        if (material.link_url) {
+            const a = document.createElement('a');
+            a.href = material.link_url;
+            a.target = '_blank';
+            a.rel = 'noopener noreferrer';
+            a.className = 'btn-review'; // już masz ładny styl
+            a.textContent = material.link_label || 'Otwórz materiał';
+            card.appendChild(a);
         }
+
+        return card;
+        }
+
 
         // Create tasks card element
         function createTasksCard(tasks, sessionNo) {
@@ -1015,14 +1026,50 @@
         }
 
         // Simple markdown to HTML converter
-        function markdownToHtml(markdown) {
-            return markdown
-                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-                .replace(/\*(.*?)\*/g, '<em>$1</em>')
-                .replace(/\n\n/g, '</p><p>')
-                .replace(/\n/g, '<br>')
-                .replace(/^/, '<p>')
-                .replace(/$/, '</p>');
+        // Lepszy markdown → HTML (prosty, bez bibliotek)
+        function markdownToHtml(md) {
+        if (!md) return '';
+
+        // escapowanie podstawowe (żeby nie wylać się XSS-em)
+        md = md
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;');
+
+        // **pogrubienie** i *kursywa*
+        md = md
+            .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+            .replace(/\*(.+?)\*/g, '<em>$1</em>');
+
+        // [tekst](url) → link
+        md = md.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+
+        // gołe URL-e → link
+        md = md.replace(/(?<!["'=\]])\b(https?:\/\/[^\s<]+)\b/g, '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>');
+
+        // proste listy na podstawie linii zaczynających się od • lub -
+        const lines = md.split(/\r?\n/);
+        let html = '';
+        let inList = false;
+
+        for (let line of lines) {
+            if (/^\s*[•\-]\s+/.test(line)) {
+            if (!inList) { html += '<ul>'; inList = true; }
+            html += '<li>' + line.replace(/^\s*[•\-]\s+/, '') + '</li>';
+            } else if (line.trim() === '') {
+            if (inList) { html += '</ul>'; inList = false; }
+            html += '<p></p>';
+            } else {
+            if (inList) { html += '</ul>'; inList = false; }
+            html += '<p>' + line + '</p>';
+            }
+        }
+        if (inList) html += '</ul>';
+
+        // pojedyncze \n wewnątrz akapitów → <br>
+        html = html.replace(/<p>(.*?)\n(.*?)<\/p>/g, (m, a, b) => `<p>${a}<br>${b}</p>`);
+
+        return html;
         }
 
         // Login functionality
