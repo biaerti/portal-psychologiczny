@@ -938,6 +938,7 @@
         }
 
         // Create material card element
+        // Zmodyfikuj funkcję createMaterialCard:
         function createMaterialCard(material) {
             const card = document.createElement('div');
             card.className = 'material-card';
@@ -956,7 +957,69 @@
             card.appendChild(heading);
             card.appendChild(content);
             
+            // NOWE: Dodaj sekcję z zasobami jeśli istnieją
+            if (material.resources && Array.isArray(material.resources) && material.resources.length > 0) {
+                const resourcesSection = createResourcesSection(material.resources);
+                card.appendChild(resourcesSection);
+            }
+            
             return card;
+        }
+
+        // NOWA FUNKCJA: Tworzenie sekcji z materiałami
+        function createResourcesSection(resources) {
+            const section = document.createElement('div');
+            section.className = 'resources-section';
+            
+            const heading = document.createElement('h4');
+            heading.innerHTML = '🎬 Materiały do wykorzystania';
+            section.appendChild(heading);
+            
+            resources.forEach(resource => {
+                const item = document.createElement('div');
+                item.className = 'resource-item';
+                
+                // Ikona
+                const icon = document.createElement('div');
+                icon.className = 'resource-icon';
+                icon.textContent = resource.type === 'video' ? '▶️' : '📄';
+                
+                // Zawartość
+                const resourceContent = document.createElement('div');
+                resourceContent.className = 'resource-content';
+                
+                const title = document.createElement('div');
+                title.className = 'resource-title';
+                title.textContent = resource.title;
+                
+                const description = document.createElement('div');
+                description.className = 'resource-description';
+                description.textContent = resource.description;
+                
+                const duration = document.createElement('span');
+                duration.className = 'resource-duration';
+                duration.textContent = resource.duration || 'Zobacz więcej';
+                
+                resourceContent.appendChild(title);
+                resourceContent.appendChild(description);
+                resourceContent.appendChild(duration);
+                
+                // Link
+                const link = document.createElement('a');
+                link.className = 'resource-link';
+                link.href = resource.url;
+                link.target = '_blank';
+                link.rel = 'noopener noreferrer';
+                link.textContent = resource.type === 'video' ? 'Obejrzyj' : 'Otwórz';
+                
+                item.appendChild(icon);
+                item.appendChild(resourceContent);
+                item.appendChild(link);
+                
+                section.appendChild(item);
+            });
+            
+            return section;
         }
 
         // Create tasks card element
