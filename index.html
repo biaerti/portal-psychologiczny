@@ -967,44 +967,64 @@
             }
         }
 
-        // Render sessions from Supabase data
-        function renderSessions(sessions) {
-            sessions.forEach(session => {
-                const sessionContainer = document.getElementById(`session${session.session_no}-materials`);
-                if (sessionContainer) {
-                    sessionContainer.innerHTML = '';
-                    
-                    // Render materials (kafelki)
-                    if (session.materials && session.materials.length > 0) {
-                        session.materials.sort((a, b) => (a.position || 0) - (b.position || 0));
-                        
-                        session.materials.forEach(material => {
-                            const materialCard = createMaterialCard(material);
-                            sessionContainer.appendChild(materialCard);
-                        });
-                    }
-
-                    // Render materials_bar (NOWA SEKCJA) - PRZED zadaniami
-                    if (session.materials_bar && session.materials_bar.length > 0) {
-                        console.log(`Rendering materials_bar for session ${session.session_no}:`, session.materials_bar);
-                        const materialsBarSection = createMaterialsBarSection(session.materials_bar);
-                        sessionContainer.appendChild(materialsBarSection);
-                    }
-
-                    // Add tasks if available (na końcu)
-                    if (session.tasks && session.tasks.length > 0) {
-                        const tasksCard = createTasksCard(session.tasks, session.session_no);
-                        sessionContainer.appendChild(tasksCard);
-                    }
-                    
-                    // Update tab
-                    const tab = document.querySelector(`[onclick="switchTab('session${session.session_no}')"]`);
-                    if (tab && !tab.textContent.includes('✅')) {
-                        tab.innerHTML = tab.innerHTML.replace('📅', '✅');
-                    }
-                }
+function renderSessions(sessions) {
+    sessions.forEach(session => {
+        const sessionContent = document.getElementById(`session${session.session_no}`);
+        if (!sessionContent) return;
+        
+        // Znajdź kontener na materiały (grid)
+        const materialsGridContainer = sessionContent.querySelector('.materials-grid');
+        
+        // Znajdź feedback section (referencja do wstawienia przed nią)
+        const feedbackSection = sessionContent.querySelector('.feedback-section');
+        
+        if (!materialsGridContainer) return;
+        
+        // Wyczyść grid
+        materialsGridContainer.innerHTML = '';
+        
+        // 1. Dodaj kafelki do gridu
+        if (session.materials && session.materials.length > 0) {
+            session.materials.sort((a, b) => (a.position || 0) - (b.position || 0));
+            
+            session.materials.forEach(material => {
+                const materialCard = createMaterialCard(material);
+                materialsGridContainer.appendChild(materialCard);
             });
         }
+        
+        // 2. Dodaj zadania do gridu (jeśli są)
+        if (session.tasks && session.tasks.length > 0) {
+            const tasksCard = createTasksCard(session.tasks, session.session_no);
+            materialsGridContainer.appendChild(tasksCard);
+        }
+        
+        // 3. Usuń poprzednią sekcję materials_bar (jeśli istnieje)
+        const existingMaterialsBar = sessionContent.querySelector('.materials-bar-section');
+        if (existingMaterialsBar) {
+            existingMaterialsBar.remove();
+        }
+        
+        // 4. Dodaj materials_bar MIĘDZY gridem a feedbackiem
+        if (session.materials_bar && session.materials_bar.length > 0) {
+            console.log(`Rendering materials_bar for session ${session.session_no}:`, session.materials_bar);
+            const materialsBarSection = createMaterialsBarSection(session.materials_bar);
+            
+            // Wstaw przed feedback section (jeśli istnieje) lub na końcu
+            if (feedbackSection) {
+                sessionContent.insertBefore(materialsBarSection, feedbackSection);
+            } else {
+                sessionContent.appendChild(materialsBarSection);
+            }
+        }
+        
+        // Update tab
+        const tab = document.querySelector(`[onclick="switchTab('session${session.session_no}')"]`);
+        if (tab && !tab.textContent.includes('✅')) {
+            tab.innerHTML = tab.innerHTML.replace('📅', '✅');
+        }
+    });
+}
 
         // NOWA FUNKCJA - renderowanie sekcji materiałów
         function createMaterialsBarSection(materialsBar) {
