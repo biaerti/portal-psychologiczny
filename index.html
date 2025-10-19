@@ -610,6 +610,67 @@
                 flex-direction: column;
             }
         }
+
+.materials-bar-section {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    margin: 20px 0;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    border-left: 5px solid #667eea;
+}
+
+.materials-bar-section h4 {
+    color: #667eea;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 18px;
+}
+
+.materials-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.material-item {
+    background: linear-gradient(135deg, #f0f4ff 0%, #e6ecff 100%);
+    border-radius: 10px;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s;
+}
+
+.material-item:hover {
+    transform: translateX(5px);
+    box-shadow: 0 3px 10px rgba(102, 126, 234, 0.2);
+}
+
+.material-name {
+    font-weight: 500;
+    color: #333;
+    flex: 1;
+}
+
+.material-link {
+    padding: 8px 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.material-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+}
     </style>
 </head>
 <body>
@@ -905,38 +966,79 @@
             }
         }
 
-        // Render sessions from Supabase data
-        function renderSessions(sessions) {
-            sessions.forEach(session => {
-                const sessionContainer = document.getElementById(`session${session.session_no}-materials`);
-                if (sessionContainer) {
-                    sessionContainer.innerHTML = '';
-                    
-                    // Render materials
-                    if (session.materials && session.materials.length > 0) {
-                        session.materials.sort((a, b) => (a.position || 0) - (b.position || 0));
-                        
-                        session.materials.forEach(material => {
-                            const materialCard = createMaterialCard(material);
-                            sessionContainer.appendChild(materialCard);
-                        });
-                    }
+        // Zaktualizuj funkcję renderSessions
+function renderSessions(sessions) {
+    sessions.forEach(session => {
+        const sessionContainer = document.getElementById(`session${session.session_no}-materials`);
+        if (sessionContainer) {
+            sessionContainer.innerHTML = '';
+            
+            // Render materials (kafelki)
+            if (session.materials && session.materials.length > 0) {
+                session.materials.sort((a, b) => (a.position || 0) - (b.position || 0));
+                
+                session.materials.forEach(material => {
+                    const materialCard = createMaterialCard(material);
+                    sessionContainer.appendChild(materialCard);
+                });
+            }
 
-                    // Add tasks if available
-                    if (session.tasks && session.tasks.length > 0) {
-                        const tasksCard = createTasksCard(session.tasks, session.session_no);
-                        sessionContainer.appendChild(tasksCard);
-                    }
-                    
-                    // Update tab to show it has content
-                    const tab = document.querySelector(`[onclick="switchTab('session${session.session_no}')"]`);
-                    if (tab && !tab.textContent.includes('✅')) {
-                        tab.innerHTML = tab.innerHTML.replace('📅', '✅');
-                    }
-                }
-            });
+            // Render materials_bar (NOWA SEKCJA)
+            if (session.materials_bar && session.materials_bar.length > 0) {
+                const materialsBarSection = createMaterialsBarSection(session.materials_bar);
+                sessionContainer.appendChild(materialsBarSection);
+            }
+
+            // Add tasks if available
+            if (session.tasks && session.tasks.length > 0) {
+                const tasksCard = createTasksCard(session.tasks, session.session_no);
+                sessionContainer.appendChild(tasksCard);
+            }
+            
+            // Update tab
+            const tab = document.querySelector(`[onclick="switchTab('session${session.session_no}')"]`);
+            if (tab && !tab.textContent.includes('✅')) {
+                tab.innerHTML = tab.innerHTML.replace('📅', '✅');
+            }
         }
+    });
+}
 
+// NOWA FUNKCJA - renderowanie sekcji materiałów
+function createMaterialsBarSection(materialsBar) {
+    const section = document.createElement('div');
+    section.className = 'materials-bar-section';
+    
+    const heading = document.createElement('h4');
+    heading.innerHTML = '📚 Materiały do polecenia';
+    section.appendChild(heading);
+    
+    const materialsList = document.createElement('div');
+    materialsList.className = 'materials-list';
+    
+    materialsBar.forEach(material => {
+        const item = document.createElement('div');
+        item.className = 'material-item';
+        
+        const name = document.createElement('div');
+        name.className = 'material-name';
+        name.textContent = material.name;
+        
+        const link = document.createElement('a');
+        link.className = 'material-link';
+        link.href = material.link;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        link.textContent = 'Otwórz';
+        
+        item.appendChild(name);
+        item.appendChild(link);
+        materialsList.appendChild(item);
+    });
+    
+    section.appendChild(materialsList);
+    return section;
+}
         // Create material card element
         function createMaterialCard(material) {
             const card = document.createElement('div');
