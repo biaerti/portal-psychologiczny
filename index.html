@@ -869,7 +869,7 @@
     <script>!function($_x,_s,id){var js,fjs=$_x.getElementsByTagName(_s)[0];if(!$_x.getElementById(id)){js = $_x.createElement(_s);js.id = id;js.src = "//platform.docplanner.com/js/widget.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","zl-widget-s");</script>
 
     <script>
-        // API Configuration 
+      // API Configuration 
         const API_CONFIG = {
             supabaseUrl: 'https://oelhskekwwrmezjcanug.supabase.co',
             supabaseKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9lbGhza2Vrd3dybWV6amNhbnVnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc4NjAwNDIsImV4cCI6MjA3MzQzNjA0Mn0.piU6TrGnxoYuLtc4vRGuFCE-0b5lSwg6RDt0ygtvGdU'
@@ -920,7 +920,6 @@
 
             } catch (error) {
                 console.error('Error loading user data:', error);
-                // Keep default loading text if there's an error
             }
         }
 
@@ -936,7 +935,7 @@
 
                 if (profileError || !profile) return;
 
-                // Get sessions with materials and tasks
+                // Get sessions with materials, tasks AND materials_bar
                 const { data: sessions, error: sessionsError } = await supabase
                     .from('sessions')
                     .select(`
@@ -944,6 +943,7 @@
                         session_no,
                         title,
                         session_date,
+                        materials_bar,
                         materials (*),
                         tasks (*)
                     `)
@@ -958,6 +958,7 @@
 
                 // Render sessions
                 if (sessions && sessions.length > 0) {
+                    console.log('Loaded sessions with materials_bar:', sessions); // Debug
                     renderSessions(sessions);
                 }
 
@@ -966,79 +967,81 @@
             }
         }
 
-        // Zaktualizuj funkcję renderSessions
-function renderSessions(sessions) {
-    sessions.forEach(session => {
-        const sessionContainer = document.getElementById(`session${session.session_no}-materials`);
-        if (sessionContainer) {
-            sessionContainer.innerHTML = '';
-            
-            // Render materials (kafelki)
-            if (session.materials && session.materials.length > 0) {
-                session.materials.sort((a, b) => (a.position || 0) - (b.position || 0));
-                
-                session.materials.forEach(material => {
-                    const materialCard = createMaterialCard(material);
-                    sessionContainer.appendChild(materialCard);
-                });
-            }
+        // Render sessions from Supabase data
+        function renderSessions(sessions) {
+            sessions.forEach(session => {
+                const sessionContainer = document.getElementById(`session${session.session_no}-materials`);
+                if (sessionContainer) {
+                    sessionContainer.innerHTML = '';
+                    
+                    // Render materials (kafelki)
+                    if (session.materials && session.materials.length > 0) {
+                        session.materials.sort((a, b) => (a.position || 0) - (b.position || 0));
+                        
+                        session.materials.forEach(material => {
+                            const materialCard = createMaterialCard(material);
+                            sessionContainer.appendChild(materialCard);
+                        });
+                    }
 
-            // Render materials_bar (NOWA SEKCJA)
-            if (session.materials_bar && session.materials_bar.length > 0) {
-                const materialsBarSection = createMaterialsBarSection(session.materials_bar);
-                sessionContainer.appendChild(materialsBarSection);
-            }
+                    // Render materials_bar (NOWA SEKCJA) - PRZED zadaniami
+                    if (session.materials_bar && session.materials_bar.length > 0) {
+                        console.log(`Rendering materials_bar for session ${session.session_no}:`, session.materials_bar);
+                        const materialsBarSection = createMaterialsBarSection(session.materials_bar);
+                        sessionContainer.appendChild(materialsBarSection);
+                    }
 
-            // Add tasks if available
-            if (session.tasks && session.tasks.length > 0) {
-                const tasksCard = createTasksCard(session.tasks, session.session_no);
-                sessionContainer.appendChild(tasksCard);
-            }
-            
-            // Update tab
-            const tab = document.querySelector(`[onclick="switchTab('session${session.session_no}')"]`);
-            if (tab && !tab.textContent.includes('✅')) {
-                tab.innerHTML = tab.innerHTML.replace('📅', '✅');
-            }
+                    // Add tasks if available (na końcu)
+                    if (session.tasks && session.tasks.length > 0) {
+                        const tasksCard = createTasksCard(session.tasks, session.session_no);
+                        sessionContainer.appendChild(tasksCard);
+                    }
+                    
+                    // Update tab
+                    const tab = document.querySelector(`[onclick="switchTab('session${session.session_no}')"]`);
+                    if (tab && !tab.textContent.includes('✅')) {
+                        tab.innerHTML = tab.innerHTML.replace('📅', '✅');
+                    }
+                }
+            });
         }
-    });
-}
 
-// NOWA FUNKCJA - renderowanie sekcji materiałów
-function createMaterialsBarSection(materialsBar) {
-    const section = document.createElement('div');
-    section.className = 'materials-bar-section';
-    
-    const heading = document.createElement('h4');
-    heading.innerHTML = '📚 Materiały do polecenia';
-    section.appendChild(heading);
-    
-    const materialsList = document.createElement('div');
-    materialsList.className = 'materials-list';
-    
-    materialsBar.forEach(material => {
-        const item = document.createElement('div');
-        item.className = 'material-item';
-        
-        const name = document.createElement('div');
-        name.className = 'material-name';
-        name.textContent = material.name;
-        
-        const link = document.createElement('a');
-        link.className = 'material-link';
-        link.href = material.link;
-        link.target = '_blank';
-        link.rel = 'noopener noreferrer';
-        link.textContent = 'Otwórz';
-        
-        item.appendChild(name);
-        item.appendChild(link);
-        materialsList.appendChild(item);
-    });
-    
-    section.appendChild(materialsList);
-    return section;
-}
+        // NOWA FUNKCJA - renderowanie sekcji materiałów
+        function createMaterialsBarSection(materialsBar) {
+            const section = document.createElement('div');
+            section.className = 'materials-bar-section';
+            
+            const heading = document.createElement('h4');
+            heading.innerHTML = '📚 Materiały do polecenia';
+            section.appendChild(heading);
+            
+            const materialsList = document.createElement('div');
+            materialsList.className = 'materials-list';
+            
+            materialsBar.forEach(material => {
+                const item = document.createElement('div');
+                item.className = 'material-item';
+                
+                const name = document.createElement('div');
+                name.className = 'material-name';
+                name.textContent = material.name;
+                
+                const link = document.createElement('a');
+                link.className = 'material-link';
+                link.href = material.link;
+                link.target = '_blank';
+                link.rel = 'noopener noreferrer';
+                link.textContent = 'Otwórz';
+                
+                item.appendChild(name);
+                item.appendChild(link);
+                materialsList.appendChild(item);
+            });
+            
+            section.appendChild(materialsList);
+            return section;
+        }
+
         // Create material card element
         function createMaterialCard(material) {
             const card = document.createElement('div');
@@ -1152,32 +1155,26 @@ function createMaterialsBarSection(materialsBar) {
                     return;
                 }
 
-                // Simple PIN validation (in production, use proper hashing)
+                // Simple PIN validation
                 if (profile.pin_hash !== password) {
                     showNotification('Nieprawidłowy login lub hasło');
                     return;
                 }
 
-                // Log first login (pusta funkcja - bez zapisywania do bazy)
                 logFirstLogin(username);
                 
-                // Extract name from display_name or username
                 const displayName = profile.display_name || formatDisplayName(username);
                 
-                // Store user info
                 localStorage.setItem('userName', displayName);
                 localStorage.setItem('username', username);
                 localStorage.setItem('userInitials', getInitials(displayName));
                 
-                // Show app
                 document.getElementById('loginScreen').style.display = 'none';
                 document.getElementById('appScreen').style.display = 'block';
                 
-                // Update user info in header
                 document.getElementById('userName').textContent = displayName;
                 document.getElementById('userAvatar').textContent = getInitials(displayName);
 
-                // Load user data
                 await loadUserData();
 
             } catch (error) {
@@ -1186,19 +1183,16 @@ function createMaterialsBarSection(materialsBar) {
             }
         });
 
-        // Format display name from username
         function formatDisplayName(username) {
             const [firstName, lastName] = username.split('.');
             return `${capitalize(firstName)} ${capitalize(lastName)}`;
         }
 
-        // Get initials from display name
         function getInitials(displayName) {
             const names = displayName.split(' ');
             return names.map(name => name[0]).join('').toUpperCase();
         }
 
-        // Pusta funkcja - nie zapisuje do bazy (brak tabeli user_activities)
         function logFirstLogin(username) {
             const isFirstLogin = !localStorage.getItem(`firstLogin_${username}`);
             if (isFirstLogin) {
@@ -1207,12 +1201,10 @@ function createMaterialsBarSection(materialsBar) {
             }
         }
 
-        // Helper function to capitalize names
         function capitalize(str) {
             return str ? str.charAt(0).toUpperCase() + str.slice(1) : '';
         }
 
-        // Check if already logged in
         window.addEventListener('load', function() {
             const userName = localStorage.getItem('userName');
             if (userName) {
@@ -1223,7 +1215,6 @@ function createMaterialsBarSection(materialsBar) {
             }
         });
 
-        // Logout functionality
         function logout() {
             localStorage.removeItem('userName');
             localStorage.removeItem('username');
@@ -1232,14 +1223,12 @@ function createMaterialsBarSection(materialsBar) {
             document.getElementById('appScreen').style.display = 'none';
             document.getElementById('loginForm').reset();
             
-            // Reset progress info to loading state
             document.getElementById('currentGoal').textContent = 'Ładowanie danych...';
             document.getElementById('currentProgress').textContent = 'Ładowanie danych...';
             document.getElementById('currentGoal').classList.add('loading');
             document.getElementById('currentProgress').classList.add('loading');
         }
 
-        // Password change modal
         function showPasswordModal() {
             document.getElementById('passwordModal').style.display = 'flex';
         }
@@ -1249,7 +1238,6 @@ function createMaterialsBarSection(materialsBar) {
             document.getElementById('passwordForm').reset();
         }
 
-        // Password change form
         document.getElementById('passwordForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
@@ -1263,7 +1251,6 @@ function createMaterialsBarSection(materialsBar) {
             }
             
             try {
-                // Update password in Supabase
                 const { error } = await supabase
                     .from('profiles')
                     .update({ pin_hash: newPassword })
@@ -1279,20 +1266,16 @@ function createMaterialsBarSection(materialsBar) {
             }
         });
 
-        // Tab switching
         function switchTab(sessionId) {
-            // Update tabs
             document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
             event.target.classList.add('active');
             
-            // Update content
             document.querySelectorAll('.session-content').forEach(content => {
                 content.classList.remove('active');
             });
             document.getElementById(sessionId).classList.add('active');
         }
 
-        // Exercise toggle
         function toggleExercise(checkbox) {
             const exerciseItem = checkbox.closest('.exercise-item');
             const content = exerciseItem.querySelector('.exercise-content');
@@ -1300,8 +1283,6 @@ function createMaterialsBarSection(materialsBar) {
             if (checkbox.checked) {
                 content.classList.add('exercise-done');
                 showNotification('Świetnie! Zadanie wykonane');
-                
-                // Save state
                 localStorage.setItem(checkbox.id, 'done');
             } else {
                 content.classList.remove('exercise-done');
@@ -1309,7 +1290,6 @@ function createMaterialsBarSection(materialsBar) {
             }
         }
 
-        // Load exercise states
         window.addEventListener('load', function() {
             setTimeout(() => {
                 document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
@@ -1318,10 +1298,9 @@ function createMaterialsBarSection(materialsBar) {
                         checkbox.closest('.exercise-item').querySelector('.exercise-content').classList.add('exercise-done');
                     }
                 });
-            }, 1000); // Wait for dynamic content to load
+            }, 1000);
         });
 
-        // Submit feedback - uproszczona wersja
         async function submitFeedback() {
             const feedback = document.querySelector('.feedback-textarea').value;
             const username = localStorage.getItem('username');
@@ -1357,14 +1336,12 @@ function createMaterialsBarSection(materialsBar) {
             }
         }
 
-        // Pomocnicza funkcja do określenia numeru sesji
         function getCurrentSessionNo() {
             const activeTab = document.querySelector('.tab.active');
             const sessionId = activeTab?.getAttribute('onclick')?.match(/session(\d+)/)?.[1];
             return sessionId ? parseInt(sessionId) : 1;
         }
 
-        // Show notification
         function showNotification(message) {
             const notification = document.getElementById('notification');
             notification.textContent = message;
@@ -1375,7 +1352,6 @@ function createMaterialsBarSection(materialsBar) {
             }, 3000);
         }
 
-        // Close modal on outside click
         window.onclick = function(event) {
             const modal = document.getElementById('passwordModal');
             if (event.target == modal) {
@@ -1383,7 +1359,6 @@ function createMaterialsBarSection(materialsBar) {
             }
         }
 
-        // PIN input - only numbers
         document.querySelectorAll('input[pattern="\\d{4}"]').forEach(input => {
             input.addEventListener('input', function(e) {
                 this.value = this.value.replace(/[^0-9]/g, '');
