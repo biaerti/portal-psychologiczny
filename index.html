@@ -1,1393 +1,1333 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal Wsparcia Psychologicznego</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            color: #333;
-        }
-
-        /* Login Screen */
-        .login-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        .login-box {
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            width: 100%;
-            max-width: 400px;
-            animation: slideIn 0.5s ease-out;
-        }
-
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .login-box h1 {
-            color: #667eea;
-            margin-bottom: 10px;
-            font-size: 28px;
-        }
-
-        .login-box p {
-            color: #666;
-            margin-bottom: 30px;
-            font-size: 14px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            color: #555;
-            font-weight: 500;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            font-size: 16px;
-            transition: all 0.3s;
-        }
-
-        .form-group input:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        }
-
-        .btn-login {
-            width: 100%;
-            padding: 14px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: transform 0.3s;
-        }
-
-        .btn-login:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
-        }
-
-        .login-note {
-            margin-top: 20px;
-            padding: 15px;
-            background: #f8f9fa;
-            border-radius: 10px;
-            font-size: 13px;
-            color: #666;
-            line-height: 1.5;
-        }
-
-        /* Main App */
-        .app-container {
-            display: none;
-            min-height: 100vh;
-            background: #f5f7fa;
-        }
-
-        .header {
-            background: white;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            padding: 20px;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .header-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .user-avatar {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-        }
-
-        .user-actions {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-        }
-
-        .btn-change-password {
-            padding: 8px 16px;
-            background: #667eea;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 14px;
-            transition: background 0.3s;
-        }
-
-        .btn-change-password:hover {
-            background: #5568d3;
-        }
-
-        .btn-logout {
-            padding: 8px 20px;
-            background: #f0f0f0;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-
-        .btn-logout:hover {
-            background: #e0e0e0;
-        }
-
-        /* Welcome Section */
-        .welcome-section {
-            max-width: 1200px;
-            margin: 30px auto;
-            padding: 0 20px;
-        }
-
-        .welcome-card {
-            background: white;
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-            margin-bottom: 30px;
-            border-left: 5px solid #667eea;
-        }
-
-        .welcome-card h2 {
-            color: #667eea;
-            margin-bottom: 15px;
-            font-size: 24px;
-        }
-
-        .progress-info {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            border-radius: 15px;
-            padding: 20px;
-            margin-top: 20px;
-        }
-
-        .progress-info h3 {
-            color: #333;
-            margin-bottom: 10px;
-            font-size: 18px;
-        }
-
-        .current-focus {
-            background: white;
-            border-radius: 10px;
-            padding: 15px;
-            margin-top: 10px;
-        }
-
-        /* Navigation Tabs */
-        .tabs-container {
-            max-width: 1200px;
-            margin: 0 auto 30px;
-            padding: 0 20px;
-        }
-
-        .tabs {
-            display: flex;
-            gap: 10px;
-            background: white;
-            padding: 10px;
-            border-radius: 15px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
-            overflow-x: auto;
-        }
-
-        .tab {
-            padding: 12px 24px;
-            background: transparent;
-            border: 2px solid transparent;
-            border-radius: 10px;
-            cursor: pointer;
-            font-weight: 500;
-            transition: all 0.3s;
-            white-space: nowrap;
-        }
-
-        .tab:hover {
-            background: #f5f7fa;
-        }
-
-        .tab.active {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border-color: transparent;
-        }
-
-        /* Content Area */
-        .content-area {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px 40px;
-        }
-
-        .session-content {
-            display: none;
-        }
-
-        .session-content.active {
-            display: block;
-            animation: fadeIn 0.5s ease-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        /* Material Cards */
-        .materials-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .material-card {
-            background: white;
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-            transition: all 0.3s;
-            cursor: pointer;
-        }
-
-        .material-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-        }
-
-        .material-type {
-            display: inline-block;
-            padding: 5px 12px;
-            background: #f0f4ff;
-            color: #667eea;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-bottom: 15px;
-        }
-
-        .material-card h3 {
-            color: #333;
-            margin-bottom: 10px;
-            font-size: 18px;
-        }
-
-        .material-card p {
-            color: #666;
-            line-height: 1.6;
-            margin-bottom: 15px;
-        }
-
-        /* Exercise Section */
-        .exercise-box {
-            background: linear-gradient(135deg, #f0f4ff 0%, #e6ecff 100%);
-            border-radius: 15px;
-            padding: 20px;
-            margin-top: 15px;
-            border: 2px solid #667eea;
-        }
-
-        .exercise-box h4 {
-            color: #667eea;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .exercise-item {
-            background: white;
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .checkbox-wrapper {
-            position: relative;
-        }
-
-        .checkbox-wrapper input[type="checkbox"] {
-            width: 24px;
-            height: 24px;
-            cursor: pointer;
-            accent-color: #667eea;
-        }
-
-        .exercise-content {
-            flex: 1;
-        }
-
-        .exercise-done {
-            opacity: 0.7;
-            text-decoration: line-through;
-        }
-
-        /* Feedback Section */
-        .feedback-section {
-            background: white;
-            border-radius: 15px;
-            padding: 25px;
-            margin-top: 20px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-        }
-
-        .feedback-section h4 {
-            color: #333;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .feedback-textarea {
-            width: 100%;
-            min-height: 120px;
-            padding: 15px;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            font-family: inherit;
-            font-size: 14px;
-            resize: vertical;
-            transition: border-color 0.3s;
-        }
-
-        .feedback-textarea:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        }
-
-        .btn-submit-feedback {
-            margin-top: 15px;
-            padding: 12px 30px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .btn-submit-feedback:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
-        }
-
-        /* ZnanyLekarz Widget Section */
-        .znanylekarz-section {
-            background: white;
-            border-radius: 15px;
-            padding: 25px;
-            margin-top: 20px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-            text-align: center;
-        }
-
-        .doctor-info {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 20px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-
-        .doctor-details h4 {
-            color: #333;
-            margin-bottom: 5px;
-            font-size: 18px;
-        }
-
-        .doctor-details p {
-            color: #666;
-            font-size: 14px;
-            margin-bottom: 15px;
-        }
-
-        .widget-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-
-        .btn-review {
-            display: inline-block;
-            padding: 12px 30px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            text-decoration: none;
-            border-radius: 10px;
-            font-weight: 600;
-            transition: all 0.3s;
-            margin: 5px;
-        }
-
-        .btn-review:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
-        }
-
-        .review-note {
-            margin-top: 15px;
-            font-size: 12px;
-            color: #999;
-            font-style: italic;
-        }
-
-        #zl-url {
-            display: inline-block !important;
-            margin: 5px !important;
-        }
-
-        /* Password Change Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-
-        .modal-content {
-            background: white;
-            padding: 30px;
-            border-radius: 20px;
-            max-width: 400px;
-            width: 90%;
-            animation: slideIn 0.3s ease-out;
-        }
-
-        .modal-header {
-            margin-bottom: 20px;
-        }
-
-        .modal-header h3 {
-            color: #667eea;
-            font-size: 20px;
-        }
-
-        .btn-close-modal {
-            float: right;
-            background: none;
-            border: none;
-            font-size: 24px;
-            cursor: pointer;
-            color: #999;
-        }
-
-        /* Notification */
-        .notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: #4caf50;
-            color: white;
-            padding: 15px 25px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            display: none;
-            animation: slideInRight 0.5s ease-out;
-            z-index: 1000;
-        }
-
-        @keyframes slideInRight {
-            from {
-                transform: translateX(100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-
-        .notification.show {
-            display: block;
-        }
-
-        .loading {
-            color: #667eea;
-            font-style: italic;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .materials-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .tabs {
-                flex-wrap: nowrap;
-                overflow-x: auto;
-                -webkit-overflow-scrolling: touch;
-            }
-            
-            .header-content {
-                flex-direction: column;
-                gap: 15px;
-            }
-
-            .user-actions {
-                width: 100%;
-                justify-content: center;
-            }
-
-            .doctor-info {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .widget-container {
-                flex-direction: column;
-            }
-        }
-
-.materials-bar-section {
-    background: white;
-    border-radius: 15px;
-    padding: 25px;
-    margin: 20px 0;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-    border-left: 5px solid #667eea;
-}
-
-.materials-bar-section h4 {
-    color: #667eea;
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 18px;
-}
-
-.materials-list {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-.material-item {
-    background: linear-gradient(135deg, #f0f4ff 0%, #e6ecff 100%);
-    border-radius: 10px;
-    padding: 15px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    transition: all 0.3s;
-}
-
-.material-item:hover {
-    transform: translateX(5px);
-    box-shadow: 0 3px 10px rgba(102, 126, 234, 0.2);
-}
-
-.material-name {
-    font-weight: 500;
-    color: #333;
-    flex: 1;
-}
-
-.material-link {
-    padding: 8px 20px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    text-decoration: none;
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: 600;
-    transition: all 0.3s;
-}
-
-.material-link:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
-}
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portal Wsparcia Psychologicznego</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      color: #333;
+    }
+
+    /* Login Screen */
+    .login-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .login-box {
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      width: 100%;
+      max-width: 400px;
+      animation: slideIn 0.5s ease-out;
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(-30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .login-box h1 {
+      color: #667eea;
+      margin-bottom: 10px;
+      font-size: 28px;
+    }
+
+    .login-box p {
+      color: #666;
+      margin-bottom: 30px;
+      font-size: 14px;
+    }
+
+    .form-group { margin-bottom: 20px; }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      color: #555;
+      font-weight: 500;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #e0e0e0;
+      border-radius: 10px;
+      font-size: 16px;
+      transition: all 0.3s;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    .btn-login {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    .btn-login:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+    }
+
+    .login-note {
+      margin-top: 20px;
+      padding: 15px;
+      background: #f8f9fa;
+      border-radius: 10px;
+      font-size: 13px;
+      color: #666;
+      line-height: 1.5;
+    }
+
+    /* Main App */
+    .app-container {
+      display: none;
+      min-height: 100vh;
+      background: #f5f7fa;
+    }
+
+    .header {
+      background: white;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      padding: 20px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .user-avatar {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+    }
+
+    .user-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .btn-change-password {
+      padding: 8px 16px;
+      background: #667eea;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.3s;
+    }
+
+    .btn-change-password:hover { background: #5568d3; }
+
+    .btn-logout {
+      padding: 8px 20px;
+      background: #f0f0f0;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .btn-logout:hover { background: #e0e0e0; }
+
+    /* Welcome Section */
+    .welcome-section {
+      max-width: 1200px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+
+    .welcome-card {
+      background: white;
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+      margin-bottom: 30px;
+      border-left: 5px solid #667eea;
+    }
+
+    .welcome-card h2 {
+      color: #667eea;
+      margin-bottom: 15px;
+      font-size: 24px;
+    }
+
+    .progress-info {
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      border-radius: 15px;
+      padding: 20px;
+      margin-top: 20px;
+    }
+
+    .progress-info h3 {
+      color: #333;
+      margin-bottom: 10px;
+      font-size: 18px;
+    }
+
+    .current-focus {
+      background: white;
+      border-radius: 10px;
+      padding: 15px;
+      margin-top: 10px;
+    }
+
+    /* Navigation Tabs */
+    .tabs-container {
+      max-width: 1200px;
+      margin: 0 auto 30px;
+      padding: 0 20px;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 10px;
+      background: white;
+      padding: 10px;
+      border-radius: 15px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+      overflow-x: auto;
+    }
+
+    .tab {
+      padding: 12px 24px;
+      background: transparent;
+      border: 2px solid transparent;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.3s;
+      white-space: nowrap;
+    }
+
+    .tab:hover { background: #f5f7fa; }
+
+    .tab.active {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border-color: transparent;
+    }
+
+    /* Content Area */
+    .content-area {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px 40px;
+    }
+
+    .session-content { display: none; }
+
+    .session-content.active {
+      display: block;
+      animation: fadeIn 0.5s ease-out;
+    }
+
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    /* Material Cards */
+    .materials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .material-card {
+      background: white;
+      border-radius: 15px;
+      padding: 25px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+
+    .material-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    }
+
+    .material-type {
+      display: inline-block;
+      padding: 5px 12px;
+      background: #f0f4ff;
+      color: #667eea;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 15px;
+    }
+
+    .material-card h3 {
+      color: #333;
+      margin-bottom: 10px;
+      font-size: 18px;
+    }
+
+    .material-card p {
+      color: #666;
+      line-height: 1.6;
+      margin-bottom: 15px;
+    }
+
+    /* Exercise Section */
+    .exercise-box {
+      background: linear-gradient(135deg, #f0f4ff 0%, #e6ecff 100%);
+      border-radius: 15px;
+      padding: 20px;
+      margin-top: 15px;
+      border: 2px solid #667eea;
+    }
+
+    .exercise-box h4 {
+      color: #667eea;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .exercise-item {
+      background: white;
+      border-radius: 10px;
+      padding: 15px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .checkbox-wrapper { position: relative; }
+
+    .checkbox-wrapper input[type="checkbox"] {
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+      accent-color: #667eea;
+    }
+
+    .exercise-content { flex: 1; }
+
+    .exercise-done {
+      opacity: 0.7;
+      text-decoration: line-through;
+    }
+
+    /* Feedback Section */
+    .feedback-section {
+      background: white;
+      border-radius: 15px;
+      padding: 25px;
+      margin-top: 20px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    }
+
+    .feedback-section h4 {
+      color: #333;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .feedback-textarea {
+      width: 100%;
+      min-height: 120px;
+      padding: 15px;
+      border: 2px solid #e0e0e0;
+      border-radius: 10px;
+      font-family: inherit;
+      font-size: 14px;
+      resize: vertical;
+      transition: border-color 0.3s;
+    }
+
+    .feedback-textarea:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    .btn-submit-feedback {
+      margin-top: 15px;
+      padding: 12px 30px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .btn-submit-feedback:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+    }
+
+    /* ZnanyLekarz Widget Section */
+    .znanylekarz-section {
+      background: white;
+      border-radius: 15px;
+      padding: 25px;
+      margin-top: 20px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+      text-align: center;
+    }
+
+    .doctor-info {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .doctor-details h4 {
+      color: #333;
+      margin-bottom: 5px;
+      font-size: 18px;
+    }
+
+    .doctor-details p {
+      color: #666;
+      font-size: 14px;
+      margin-bottom: 15px;
+    }
+
+    .widget-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .btn-review {
+      display: inline-block;
+      padding: 12px 30px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      text-decoration: none;
+      border-radius: 10px;
+      font-weight: 600;
+      transition: all 0.3s;
+      margin: 5px;
+    }
+
+    .btn-review:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+    }
+
+    .review-note {
+      margin-top: 15px;
+      font-size: 12px;
+      color: #999;
+      font-style: italic;
+    }
+
+    #zl-url { display: inline-block !important; margin: 5px !important; }
+
+    /* Password Change Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      max-width: 400px;
+      width: 90%;
+      animation: slideIn 0.3s ease-out;
+    }
+
+    .modal-header { margin-bottom: 20px; }
+
+    .modal-header h3 { color: #667eea; font-size: 20px; }
+
+    .btn-close-modal {
+      float: right;
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: #999;
+    }
+
+    /* Notification */
+    .notification {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #4caf50;
+      color: white;
+      padding: 15px 25px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      display: none;
+      animation: slideInRight 0.5s ease-out;
+      z-index: 1000;
+    }
+
+    @keyframes slideInRight {
+      from { transform: translateX(100%); opacity: 0; }
+      to   { transform: translateX(0); opacity: 1; }
+    }
+
+    .notification.show { display: block; }
+
+    .loading { color: #667eea; font-style: italic; }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .materials-grid { grid-template-columns: 1fr; }
+      .tabs { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .header-content { flex-direction: column; gap: 15px; }
+      .user-actions { width: 100%; justify-content: center; }
+      .doctor-info { flex-direction: column; text-align: center; }
+      .widget-container { flex-direction: column; }
+    }
+
+    .materials-bar-section {
+      background: white;
+      border-radius: 15px;
+      padding: 25px;
+      margin: 20px 0;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+      border-left: 5px solid #667eea;
+    }
+
+    .materials-bar-section h4 {
+      color: #667eea;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 18px;
+    }
+
+    .materials-list { display: flex; flex-direction: column; gap: 12px; }
+
+    .material-item {
+      background: linear-gradient(135deg, #f0f4ff 0%, #e6ecff 100%);
+      border-radius: 10px;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.3s;
+    }
+
+    .material-item:hover {
+      transform: translateX(5px);
+      box-shadow: 0 3px 10px rgba(102, 126, 234, 0.2);
+    }
+
+    .material-name { font-weight: 500; color: #333; flex: 1; }
+
+    .material-link {
+      padding: 8px 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+
+    .material-link:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+    }
+  </style>
 </head>
-<body>
-    <!-- Login Screen -->
-    <div class="login-container" id="loginScreen">
-        <div class="login-box">
-            <h1>🧠 Portal Wsparcia</h1>
-            <p>Zaloguj się, aby uzyskać dostęp do swoich materiałów</p>
-            
-            <form id="loginForm">
-                <div class="form-group">
-                    <label for="username">Login</label>
-                    <input type="text" id="username" required placeholder="imie.nazwisko" autocomplete="username">
-                </div>
-                
-                <div class="form-group">
-                    <label for="password">Hasło (PIN)</label>
-                    <input type="password" id="password" maxlength="4" pattern="\d{4}" required placeholder="4-cyfrowy PIN" autocomplete="current-password">
-                </div>
-                
-                <button type="submit" class="btn-login">Zaloguj się</button>
-            </form>
 
-            <div class="login-note">
-                <strong>Pierwsze logowanie?</strong><br>
-                Twój login to: imię.nazwisko (małymi literami, bez polskich znaków)<br>
-                Hasło (PIN) otrzymałeś w mailu powitalnym.<br><br>
-                <small>Portal dostępny tylko dla osób korzystających ze wsparcia psychologicznego.</small>
-            </div>
+<body>
+  <!-- Login Screen -->
+  <div class="login-container" id="loginScreen">
+    <div class="login-box">
+      <h1>🧠 Portal Wsparcia</h1>
+      <p>Zaloguj się, aby uzyskać dostęp do swoich materiałów</p>
+
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="username">Login</label>
+          <input type="text" id="username" required placeholder="imie.nazwisko" autocomplete="username">
         </div>
+
+        <div class="form-group">
+          <label for="password">Hasło (PIN)</label>
+          <input type="password" id="password" maxlength="4" pattern="\d{4}" required placeholder="4-cyfrowy PIN" autocomplete="current-password">
+        </div>
+
+        <button type="submit" class="btn-login">Zaloguj się</button>
+      </form>
+
+      <div class="login-note">
+        <strong>Pierwsze logowanie?</strong><br>
+        Twój login to: imię.nazwisko (małymi literami, bez polskich znaków)<br>
+        Hasło (PIN) otrzymałeś w mailu powitalnym.<br><br>
+        <small>Portal dostępny tylko dla osób korzystających ze wsparcia psychologicznego.</small>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main App -->
+  <div class="app-container" id="appScreen">
+    <!-- Header -->
+    <div class="header">
+      <div class="header-content">
+        <h1 style="color: #667eea; font-size: 24px;">🧠 Twoje materiały pomocnicze</h1>
+        <div class="user-info">
+          <div class="user-avatar" id="userAvatar">JK</div>
+          <span id="userName">Jan Kowalski</span>
+          <div class="user-actions">
+            <button class="btn-change-password" onclick="showPasswordModal()">Zmień hasło</button>
+            <button class="btn-logout" onclick="logout()">Wyloguj</button>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <!-- Main App -->
-    <div class="app-container" id="appScreen">
-        <!-- Header -->
-        <div class="header">
-            <div class="header-content">
-                <h1 style="color: #667eea; font-size: 24px;">🧠 Twoje materiały pomocnicze</h1>
-                <div class="user-info">
-                    <div class="user-avatar" id="userAvatar">JK</div>
-                    <span id="userName">Jan Kowalski</span>
-                    <div class="user-actions">
-                        <button class="btn-change-password" onclick="showPasswordModal()">Zmień hasło</button>
-                        <button class="btn-logout" onclick="logout()">Wyloguj</button>
-                    </div>
-                </div>
-            </div>
+    <!-- Welcome Section -->
+    <div class="welcome-section">
+      <div class="welcome-card">
+        <h2>Cześć! 👋</h2>
+        <p>
+          To Twoja przestrzeń, gdzie znajdziesz materiały z naszych spotkań. Tutaj możesz w spokoju wrócić do omawianych technik,
+          wykonać ćwiczenia i śledzić swoje postępy. Wszystko w jednym miejscu, dostępne zawsze kiedy potrzebujesz.
+        </p>
+
+        <div class="progress-info">
+          <h3>📊 Nad czym pracujemy</h3>
+          <div class="current-focus">
+            <strong>Aktualny obszar pracy:</strong> <span id="currentGoal" class="loading">Ładowanie danych...</span>
+            <br><br>
+            <strong>Gdzie jesteśmy:</strong> <span id="currentProgress" class="loading">Ładowanie danych...</span>
+          </div>
         </div>
+      </div>
+    </div>
 
-        <!-- Welcome Section -->
-        <div class="welcome-section">
-            <div class="welcome-card">
-                <h2>Cześć! 👋</h2>
-                <p>To Twoja przestrzeń, gdzie znajdziesz materiały z naszych spotkań. Tutaj możesz w spokoju wrócić do omawianych technik, wykonać ćwiczenia i śledzić swoje postępy. Wszystko w jednym miejscu, dostępne zawsze kiedy potrzebujesz.</p>
-                
-                <div class="progress-info">
-                    <h3>📊 Nad czym pracujemy</h3>
-                    <div class="current-focus">
-                        <strong>Aktualny obszar pracy:</strong> <span id="currentGoal" class="loading">Ładowanie danych...</span>
-                        <br><br>
-                        <strong>Gdzie jesteśmy:</strong> <span id="currentProgress" class="loading">Ładowanie danych...</span>
-                    </div>
-                </div>
+    <!-- Navigation Tabs -->
+    <div class="tabs-container">
+      <div class="tabs">
+        <button class="tab active" onclick="switchTab('session0')">📚 Wprowadzenie</button>
+        <button class="tab" onclick="switchTab('session1')">📅 Spotkanie 1</button>
+        <button class="tab" onclick="switchTab('session2')">📅 Spotkanie 2</button>
+        <button class="tab" onclick="switchTab('session3')">📅 Spotkanie 3</button>
+      </div>
+    </div>
+
+    <!-- Content Area -->
+    <div class="content-area">
+      <!-- Session 0 -->
+      <div class="session-content active" id="session0">
+        <div class="materials-grid">
+          <div class="material-card">
+            <span class="material-type">WPROWADZENIE</span>
+            <h3>Jak będziemy pracować?</h3>
+            <p>Nasze spotkania opierają się na sprawdzonych metodach psychologicznych. Będziemy razem badać to, co Cię blokuje, testować różne rozwiązania i sprawdzać, co działa najlepiej właśnie dla Ciebie.</p>
+            <div class="exercise-box">
+              <h4>📝 Czego możesz się spodziewać</h4>
+              <p>• Konkretna praca nad tym, co chcesz zmienić<br>
+              • Praktyczne techniki do zastosowania od razu<br>
+              • Wsparcie bez oceniania<br>
+              • Skupienie na "tu i teraz" z elementami zrozumienia przeszłości</p>
             </div>
-        </div>
+          </div>
 
-        <!-- Navigation Tabs -->
-        <div class="tabs-container">
-            <div class="tabs">
-                <button class="tab active" onclick="switchTab('session0')">📚 Wprowadzenie</button>
-                <button class="tab" onclick="switchTab('session1')">📅 Spotkanie 1</button>
-                <button class="tab" onclick="switchTab('session2')">📅 Spotkanie 2</button>
-                <button class="tab" onclick="switchTab('session3')">📅 Spotkanie 3</button>
-            </div>
-        </div>
+          <div class="material-card">
+            <span class="material-type">ZASADY</span>
+            <h3>Nasza współpraca</h3>
+            <p><strong>Poufność:</strong> To, o czym rozmawiamy, zostaje między nami. Wyjątkiem są sytuacje zagrożenia życia lub zdrowia.</p>
+            <p><strong>Twój wkład:</strong> Im bardziej się zaangażujesz, tym lepsze efekty. To jak trening - ja jestem trenerem, ale to Ty wykonujesz ćwiczenia.</p>
+            <p><strong>Czas:</strong> Spotkania trwają 50 minut. Jeśli nie możesz przyjść, daj znać przynajmniej 24h wcześniej.</p>
+            <p><strong>Materiały:</strong> Po każdym spotkaniu znajdziesz tu nowe materiały. Sprawdzaj portal w weekendy - aktualizuję go w piątki wieczorem.</p>
+          </div>
 
-        <!-- Content Area -->
-        <div class="content-area">
-            <!-- Session 0 - Introduction Materials -->
-            <div class="session-content active" id="session0">
-                <div class="materials-grid">
-                    <div class="material-card">
-                        <span class="material-type">WPROWADZENIE</span>
-                        <h3>Jak będziemy pracować?</h3>
-                        <p>Nasze spotkania opierają się na sprawdzonych metodach psychologicznych. Będziemy razem badać to, co Cię blokuje, testować różne rozwiązania i sprawdzać, co działa najlepiej właśnie dla Ciebie.</p>
-                        <div class="exercise-box">
-                            <h4>📝 Czego możesz się spodziewać</h4>
-                            <p>• Konkretna praca nad tym, co chcesz zmienić<br>
-                            • Praktyczne techniki do zastosowania od razu<br>
-                            • Wsparcie bez oceniania<br>
-                            • Skupienie na "tu i teraz" z elementami zrozumienia przeszłości</p>
-                        </div>
-                    </div>
-
-                    <div class="material-card">
-                        <span class="material-type">ZASADY</span>
-                        <h3>Nasza współpraca</h3>
-                        <p><strong>Poufność:</strong> To, o czym rozmawiamy, zostaje między nami. Wyjątkiem są sytuacje zagrożenia życia lub zdrowia.</p>
-                        <p><strong>Twój wkład:</strong> Im bardziej się zaangażujesz, tym lepsze efekty. To jak trening - ja jestem trenerem, ale to Ty wykonujesz ćwiczenia.</p>
-                        <p><strong>Czas:</strong> Spotkania trwają 50 minut. Jeśli nie możesz przyjść, daj znać przynajmniej 24h wcześniej.</p>
-                        <p><strong>Materiały:</strong> Po każdym spotkaniu znajdziesz tu nowe materiały. Sprawdzaj portal w weekendy - aktualizuję go w piątki wieczorem.</p>
-                    </div>
-
-        <div class="material-card">
+          <div class="material-card">
             <span class="material-type">WAŻNE</span>
             <h3>Ile spotkań będzie potrzebnych?</h3>
             <p><strong>To zależy tylko od Ciebie.</strong> Nie ma żadnego minimalnego zobowiązania ani oczekiwań co do regularności.</p>
-            
+
             <p>Możesz:</p>
             <p>• Przyjść na jedno spotkanie i zobaczyć, czy to dla Ciebie<br>
             • Spotykać się regularnie (np. co tydzień)<br>
             • Rezerwować wizytę tylko wtedy, gdy czujesz, że potrzebujesz wsparcia<br>
             • W każdej chwili zakończyć współpracę bez wyjaśnień</p>
-            
+
             <p><strong>Nie musisz się tłumaczyć ani zobowiązywać.</strong> Umów się wtedy, kiedy poczujesz potrzebę – czy to za tydzień, czy za pół roku. Jestem tutaj, gdy będziesz chciał/a.</p>
+          </div>
         </div>
-                </div>
-            </div>
+      </div>
 
-            <!-- Dynamic content for sessions will be loaded here -->
-            <div class="session-content" id="session1">
-                <div class="materials-grid" id="session1-materials">
-                    <!-- Dynamic content from Supabase -->
-                </div>
-                <div class="feedback-section">
-                    <h4>💭 Jak poszło?</h4>
-                    <textarea class="feedback-textarea" placeholder="Napisz jak poszło z ćwiczeniami. Co było łatwe? Co trudne? Jakie masz spostrzeżenia? To pomoże mi lepiej dopasować kolejne materiały."></textarea>
-                    <button class="btn-submit-feedback" onclick="submitFeedback()">Wyślij feedback</button>
-                </div>
-            </div>
-
-            <div class="session-content" id="session2">
-                <div class="materials-grid" id="session2-materials">
-                    <div class="material-card">
-                        <span class="material-type">WKRÓTCE</span>
-                        <h3>Materiały pojawią się po spotkaniu</h3>
-                        <p>Zajrzyj tu w weekend - zazwyczaj aktualizuję portal w piątek wieczorem, żebyś miał czas spokojnie przejrzeć materiały.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="session-content" id="session3">
-                <div class="materials-grid" id="session3-materials">
-                    <div class="material-card">
-                        <span class="material-type">WKRÓTCE</span>
-                        <h3>Tu będą materiały z trzeciego spotkania</h3>
-                        <p>Pamiętaj - pracujemy w Twoim tempie. Nie musisz się spieszyć.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ZnanyLekarz Widget Section -->
-            <div class="znanylekarz-section">
-                <div class="doctor-info">
-                    <div class="doctor-details">
-                        <h4>Bartosz Kuniński</h4>
-                        <p>Psycholog, Wrocław</p>
-                        <p>Jeśli nasza współpraca Ci pomaga bądź pomogła, byłbym wdzięczny za wystawienie opinii.</p>
-                    </div>
-                </div>
-                
-                <div class="widget-container">
-                    <a id="zl-url" class="zl-url" href="https://www.znanylekarz.pl/bartosz-kuninski/psycholog/wroclaw" rel="nofollow" data-zlw-doctor="bartosz-kuninski" data-zlw-type="big" data-zlw-opinion="true" data-zlw-hide-branding="true" data-zlw-saas-only="true" data-zlw-a11y-title="Widget umówienia wizyty lekarskiej">Bartosz Kuniński - ZnanyLekarz.pl</a>
-                    <a href="https://www.znanylekarz.pl/bartosz-kuninski/psycholog/wroclaw" target="_blank" class="btn-review">Zostaw opinię</a>
-                </div>
-                
-                <p class="review-note">W dzisiejszych czasach opinie online są kluczowe dla widoczności - pomagają innym znaleźć odpowiednią pomoc, a mi rozwijać praktykę.<br>Jeśli znajdziesz wolną chwilę, będę bardzo wdzięczny za podzielenie się swoimi wrażeniami.</p>
-            </div>
+      <!-- Session 1 -->
+      <div class="session-content" id="session1">
+        <div class="materials-grid" id="session1-materials"></div>
+        <div class="feedback-section">
+          <h4>💭 Jak poszło?</h4>
+          <textarea class="feedback-textarea" placeholder="Napisz jak poszło z ćwiczeniami. Co było łatwe? Co trudne? Jakie masz spostrzeżenia? To pomoże mi lepiej dopasować kolejne materiały."></textarea>
+          <button class="btn-submit-feedback" onclick="submitFeedback()">Wyślij feedback</button>
         </div>
-    </div>
+      </div>
 
-    <!-- Password Change Modal -->
-    <div class="modal" id="passwordModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button class="btn-close-modal" onclick="closePasswordModal()">&times;</button>
-                <h3>Zmiana hasła</h3>
-            </div>
-            <form id="passwordForm">
-                <div class="form-group">
-                    <label for="newPassword">Nowe hasło (4-cyfrowy PIN)</label>
-                    <input type="password" id="newPassword" maxlength="4" pattern="\d{4}" required placeholder="0000" autocomplete="new-password">
-                </div>
-                <div class="form-group">
-                    <label for="confirmPassword">Potwierdź nowe hasło</label>
-                    <input type="password" id="confirmPassword" maxlength="4" pattern="\d{4}" required placeholder="0000" autocomplete="new-password">
-                </div>
-                <button type="submit" class="btn-login">Zmień hasło</button>
-            </form>
-            <p style="margin-top: 15px; font-size: 13px; color: #666;">Po zmianie hasła tylko Ty będziesz znać dostęp do swoich materiałów.</p>
+      <!-- Session 2 -->
+      <div class="session-content" id="session2">
+        <div class="materials-grid" id="session2-materials">
+          <div class="material-card">
+            <span class="material-type">WKRÓTCE</span>
+            <h3>Materiały pojawią się po spotkaniu</h3>
+            <p>Zajrzyj tu w weekend - zazwyczaj aktualizuję portal w piątek wieczorem, żebyś miał czas spokojnie przejrzeć materiały.</p>
+          </div>
         </div>
+      </div>
+
+      <!-- Session 3 -->
+      <div class="session-content" id="session3">
+        <div class="materials-grid" id="session3-materials">
+          <div class="material-card">
+            <span class="material-type">WKRÓTCE</span>
+            <h3>Tu będą materiały z trzeciego spotkania</h3>
+            <p>Pamiętaj - pracujemy w Twoim tempie. Nie musisz się spieszyć.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ZnanyLekarz Widget Section -->
+      <div class="znanylekarz-section">
+        <div class="doctor-info">
+          <div class="doctor-details">
+            <h4>Bartosz Kuniński</h4>
+            <p>Psycholog, Wrocław</p>
+            <p>Jeśli nasza współpraca Ci pomaga bądź pomogła, byłbym wdzięczny za wystawienie opinii.</p>
+          </div>
+        </div>
+
+        <div class="widget-container">
+          <a id="zl-url" class="zl-url"
+             href="https://www.znanylekarz.pl/bartosz-kuninski/psycholog/wroclaw"
+             rel="nofollow"
+             data-zlw-doctor="bartosz-kuninski"
+             data-zlw-type="big"
+             data-zlw-opinion="true"
+             data-zlw-hide-branding="true"
+             data-zlw-saas-only="true"
+             data-zlw-a11y-title="Widget umówienia wizyty lekarskiej">Bartosz Kuniński - ZnanyLekarz.pl</a>
+          <a href="https://www.znanylekarz.pl/bartosz-kuninski/psycholog/wroclaw" target="_blank" class="btn-review">Zostaw opinię</a>
+        </div>
+
+        <p class="review-note">
+          W dzisiejszych czasach opinie online są kluczowe dla widoczności - pomagają innym znaleźć odpowiednią pomoc, a mi rozwijać praktykę.<br>
+          Jeśli znajdziesz wolną chwilę, będę bardzo wdzięczny za podzielenie się swoimi wrażeniami.
+        </p>
+      </div>
     </div>
+  </div>
 
-    <!-- Notification -->
-    <div class="notification" id="notification">
-        Zapisano pomyślnie!
+  <!-- Password Change Modal -->
+  <div class="modal" id="passwordModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="btn-close-modal" onclick="closePasswordModal()">&times;</button>
+        <h3>Zmiana hasła</h3>
+      </div>
+      <form id="passwordForm">
+        <div class="form-group">
+          <label for="newPassword">Nowe hasło (4-cyfrowy PIN)</label>
+          <input type="password" id="newPassword" maxlength="4" pattern="\d{4}" required placeholder="0000" autocomplete="new-password">
+        </div>
+        <div class="form-group">
+          <label for="confirmPassword">Potwierdź nowe hasło</label>
+          <input type="password" id="confirmPassword" maxlength="4" pattern="\d{4}" required placeholder="0000" autocomplete="new-password">
+        </div>
+        <button type="submit" class="btn-login">Zmień hasło</button>
+      </form>
+      <p style="margin-top: 15px; font-size: 13px; color: #666;">Po zmianie hasła tylko Ty będziesz znać dostęp do swoich materiałów.</p>
     </div>
+  </div>
 
-    <!-- ZnanyLekarz Widget Script -->
-    <script>!function($_x,_s,id){var js,fjs=$_x.getElementsByTagName(_s)[0];if(!$_x.getElementById(id)){js = $_x.createElement(_s);js.id = id;js.src = "//platform.docplanner.com/js/widget.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","zl-widget-s");</script>
+  <!-- Notification -->
+  <div class="notification" id="notification">Zapisano pomyślnie!</div>
 
-    <script>
-      // API Configuration 
-        const API_CONFIG = {
-            supabaseUrl: 'https://oelhskekwwrmezjcanug.supabase.co',
-            supabaseKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9lbGhza2Vrd3dybWV6amNhbnVnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc4NjAwNDIsImV4cCI6MjA3MzQzNjA0Mn0.piU6TrGnxoYuLtc4vRGuFCE-0b5lSwg6RDt0ygtvGdU'
-        };
+  <!-- ZnanyLekarz Widget Script -->
+  <script>
+    !function($_x,_s,id){
+      var js,fjs=$_x.getElementsByTagName(_s)[0];
+      if(!$_x.getElementById(id)){
+        js = $_x.createElement(_s);
+        js.id = id;
+        js.src = "//platform.docplanner.com/js/widget.js";
+        fjs.parentNode.insertBefore(js,fjs);
+      }
+    }(document,"script","zl-widget-s");
+  </script>
 
-        // Initialize Supabase client
-    let supabaseClient;
-        if (typeof window !== 'undefined') {
-            const script = document.createElement('script');
-            script.src = 'https://unpkg.com/@supabase/supabase-js@2';
-            script.onload = () => {
-        supabaseClient = window.supabase.createClient(API_CONFIG.supabaseUrl, API_CONFIG.supabaseKey);
-                
-                // Load user data if logged in
-                const userName = localStorage.getItem('userName');
-                if (userName) {
-                    loadUserData();
-                }
-            };
-            document.head.appendChild(script);
+  <!-- Supabase SDK (v2) -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script>
+    // API Configuration
+    const API_CONFIG = {
+      supabaseUrl: 'https://oelhskekwwrmezjcanug.supabase.co',
+      supabaseKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9lbGhza2Vrd3dybWV6amNhbnVnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc4NjAwNDIsImV4cCI6MjA3MzQzNjA0Mn0.piU6TrGnxoYuLtc4vRGuFCE-0b5lSwg6RDt0ygtvGdU'
+    };
+
+    // IMPORTANT:
+    // window.supabase = biblioteka (ma createClient)
+    // supabaseClient = klient (ma .from)
+    let supabaseClient = null;
+
+    // init
+    (function initSupabase() {
+      if (!window.supabase || typeof window.supabase.createClient !== 'function') {
+        console.error('Supabase SDK nie załadował się poprawnie');
+        return;
+      }
+      supabaseClient = window.supabase.createClient(API_CONFIG.supabaseUrl, API_CONFIG.supabaseKey);
+
+      // jeśli ktoś był już zalogowany, doładuj dane
+      const userName = localStorage.getItem('userName');
+      const username = localStorage.getItem('username');
+      if (userName && username) {
+        document.getElementById('loginScreen').style.display = 'none';
+        document.getElementById('appScreen').style.display = 'block';
+        document.getElementById('userName').textContent = userName;
+        document.getElementById('userAvatar').textContent = localStorage.getItem('userInitials') || '??';
+        loadUserData();
+      }
+    })();
+
+    // Load user data from Supabase
+    async function loadUserData() {
+      const username = localStorage.getItem('username');
+      if (!username || !supabaseClient) return;
+
+      try {
+        // Get user profile with current goal and progress
+        const { data: profile, error: profileError } = await supabaseClient
+          .from('profiles')
+          .select('current_goal, current_progress')
+          .eq('username', username)
+          .single();
+
+        if (!profileError && profile) {
+          document.getElementById('currentGoal').textContent = profile.current_goal || 'Określimy na pierwszym spotkaniu';
+          document.getElementById('currentProgress').textContent = profile.current_progress || 'Rozpoczynamy naszą współpracę';
+
+          document.getElementById('currentGoal').classList.remove('loading');
+          document.getElementById('currentProgress').classList.remove('loading');
         }
 
-        // Load user data from Supabase
-        async function loadUserData() {
-            const username = localStorage.getItem('username');
-            if (!username || !supabase) return;
+        await loadSessionMaterials(username);
+      } catch (error) {
+        console.error('Error loading user data:', error);
+      }
+    }
 
-            try {
-                // Get user profile with current goal and progress
-                const { data: profile, error: profileError } = await supabase
-                    .from('profiles')
-                    .select('current_goal, current_progress')
-                    .eq('username', username)
-                    .single();
+    // Load session materials
+    async function loadSessionMaterials(username) {
+      try {
+        if (!supabaseClient) return;
 
-                if (!profileError && profile) {
-                    // Update progress info
-                    document.getElementById('currentGoal').textContent = profile.current_goal || 'Określimy na pierwszym spotkaniu';
-                    document.getElementById('currentProgress').textContent = profile.current_progress || 'Rozpoczynamy naszą współpracę';
-                    
-                    // Remove loading class
-                    document.getElementById('currentGoal').classList.remove('loading');
-                    document.getElementById('currentProgress').classList.remove('loading');
-                }
+        // Get user profile ID
+        const { data: profile, error: profileError } = await supabaseClient
+          .from('profiles')
+          .select('id')
+          .eq('username', username)
+          .single();
 
-                // Load sessions and materials
-                await loadSessionMaterials(username);
+        if (profileError || !profile) return;
 
-            } catch (error) {
-                console.error('Error loading user data:', error);
-            }
+        // Get sessions with materials, tasks AND materials_bar
+        const { data: sessions, error: sessionsError } = await supabaseClient
+          .from('sessions')
+          .select(`
+            id,
+            session_no,
+            title,
+            session_date,
+            materials_bar,
+            materials (*),
+            tasks (*)
+          `)
+          .eq('patient_id', profile.id)
+          .eq('status', 'published')
+          .order('session_no', { ascending: true });
+
+        if (sessionsError) {
+          console.error('Error loading sessions:', sessionsError);
+          return;
         }
 
-        // Load session materials
-        async function loadSessionMaterials(username) {
-            try {
-                // Get user profile ID
-                const { data: profile, error: profileError } = await supabase
-                    .from('profiles')
-                    .select('id')
-                    .eq('username', username)
-                    .single();
-
-                if (profileError || !profile) return;
-
-                // Get sessions with materials, tasks AND materials_bar
-                const { data: sessions, error: sessionsError } = await supabase
-                    .from('sessions')
-                    .select(`
-                        id,
-                        session_no,
-                        title,
-                        session_date,
-                        materials_bar,
-                        materials (*),
-                        tasks (*)
-                    `)
-                    .eq('patient_id', profile.id)
-                    .eq('status', 'published')
-                    .order('session_no', { ascending: true });
-
-                if (sessionsError) {
-                    console.error('Error loading sessions:', sessionsError);
-                    return;
-                }
-
-                // Render sessions
-                if (sessions && sessions.length > 0) {
-                    console.log('Loaded sessions with materials_bar:', sessions); // Debug
-                    renderSessions(sessions);
-                }
-
-            } catch (error) {
-                console.error('Error loading session materials:', error);
-            }
+        if (sessions && sessions.length > 0) {
+          console.log('Loaded sessions with materials_bar:', sessions);
+          renderSessions(sessions);
         }
 
-function renderSessions(sessions) {
-    sessions.forEach(session => {
+      } catch (error) {
+        console.error('Error loading session materials:', error);
+      }
+    }
+
+    function renderSessions(sessions) {
+      sessions.forEach(session => {
         const sessionContent = document.getElementById(`session${session.session_no}`);
         if (!sessionContent) return;
-        
-        // Znajdź kontener na materiały (grid)
+
         const materialsGridContainer = sessionContent.querySelector('.materials-grid');
-        
-        // Znajdź feedback section (referencja do wstawienia przed nią)
         const feedbackSection = sessionContent.querySelector('.feedback-section');
-        
         if (!materialsGridContainer) return;
-        
-        // Wyczyść grid
+
         materialsGridContainer.innerHTML = '';
-        
-        // 1. Dodaj kafelki do gridu
+
+        // 1. Kafelki
         if (session.materials && session.materials.length > 0) {
-            session.materials.sort((a, b) => (a.position || 0) - (b.position || 0));
-            
-            session.materials.forEach(material => {
-                const materialCard = createMaterialCard(material);
-                materialsGridContainer.appendChild(materialCard);
-            });
+          session.materials.sort((a, b) => (a.position || 0) - (b.position || 0));
+          session.materials.forEach(material => {
+            const materialCard = createMaterialCard(material);
+            materialsGridContainer.appendChild(materialCard);
+          });
         }
-        
-        // 2. Dodaj zadania do gridu (jeśli są)
+
+        // 2. Zadania
         if (session.tasks && session.tasks.length > 0) {
-            const tasksCard = createTasksCard(session.tasks, session.session_no);
-            materialsGridContainer.appendChild(tasksCard);
+          const tasksCard = createTasksCard(session.tasks, session.session_no);
+          materialsGridContainer.appendChild(tasksCard);
         }
-        
-        // 3. Usuń poprzednią sekcję materials_bar (jeśli istnieje)
+
+        // 3. Usuń poprzednią sekcję materials_bar
         const existingMaterialsBar = sessionContent.querySelector('.materials-bar-section');
-        if (existingMaterialsBar) {
-            existingMaterialsBar.remove();
-        }
-        
-        // 4. Dodaj materials_bar MIĘDZY gridem a feedbackiem
+        if (existingMaterialsBar) existingMaterialsBar.remove();
+
+        // 4. Dodaj materials_bar między gridem a feedbackiem
         if (session.materials_bar && session.materials_bar.length > 0) {
-            console.log(`Rendering materials_bar for session ${session.session_no}:`, session.materials_bar);
-            const materialsBarSection = createMaterialsBarSection(session.materials_bar);
-            
-            // Wstaw przed feedback section (jeśli istnieje) lub na końcu
-            if (feedbackSection) {
-                sessionContent.insertBefore(materialsBarSection, feedbackSection);
-            } else {
-                sessionContent.appendChild(materialsBarSection);
-            }
+          console.log(`Rendering materials_bar for session ${session.session_no}:`, session.materials_bar);
+          const materialsBarSection = createMaterialsBarSection(session.materials_bar);
+
+          if (feedbackSection) {
+            sessionContent.insertBefore(materialsBarSection, feedbackSection);
+          } else {
+            sessionContent.appendChild(materialsBarSection);
+          }
         }
-        
+
         // Update tab
         const tab = document.querySelector(`[onclick="switchTab('session${session.session_no}')"]`);
         if (tab && !tab.textContent.includes('✅')) {
-            tab.innerHTML = tab.innerHTML.replace('📅', '✅');
+          tab.innerHTML = tab.innerHTML.replace('📅', '✅');
         }
+      });
+    }
+
+    // NOWA FUNKCJA - renderowanie sekcji materiałów
+    function createMaterialsBarSection(materialsBar) {
+      const section = document.createElement('div');
+      section.className = 'materials-bar-section';
+
+      const heading = document.createElement('h4');
+      heading.innerHTML = '📚 Materiały do polecenia';
+      section.appendChild(heading);
+
+      const materialsList = document.createElement('div');
+      materialsList.className = 'materials-list';
+
+      materialsBar.forEach(material => {
+        const item = document.createElement('div');
+        item.className = 'material-item';
+
+        const name = document.createElement('div');
+        name.className = 'material-name';
+        name.textContent = material.name;
+
+        const link = document.createElement('a');
+        link.className = 'material-link';
+        link.href = material.link;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        link.textContent = 'Otwórz';
+
+        item.appendChild(name);
+        item.appendChild(link);
+        materialsList.appendChild(item);
+      });
+
+      section.appendChild(materialsList);
+      return section;
+    }
+
+    // Create material card element
+    function createMaterialCard(material) {
+      const card = document.createElement('div');
+      card.className = 'material-card';
+
+      const typeSpan = document.createElement('span');
+      typeSpan.className = 'material-type';
+      typeSpan.textContent = (material.kind || 'info').toUpperCase();
+
+      const heading = document.createElement('h3');
+      heading.textContent = material.heading || 'Bez tytułu';
+
+      const content = document.createElement('div');
+      content.innerHTML = markdownToHtml(material.body_md || '');
+
+      card.appendChild(typeSpan);
+      card.appendChild(heading);
+      card.appendChild(content);
+
+      return card;
+    }
+
+    // Create tasks card element
+    function createTasksCard(tasks, sessionNo) {
+      const card = document.createElement('div');
+      card.className = 'material-card';
+
+      const typeSpan = document.createElement('span');
+      typeSpan.className = 'material-type';
+      typeSpan.textContent = 'ZADANIA';
+
+      const heading = document.createElement('h3');
+      heading.textContent = 'Do wypróbowania w tym tygodniu';
+
+      const exerciseBox = document.createElement('div');
+      exerciseBox.className = 'exercise-box';
+
+      const exerciseHeading = document.createElement('h4');
+      exerciseHeading.innerHTML = '✅ Zadania na ten tydzień';
+      exerciseBox.appendChild(exerciseHeading);
+
+      tasks.forEach((task, index) => {
+        const exerciseItem = document.createElement('div');
+        exerciseItem.className = 'exercise-item';
+
+        const checkboxWrapper = document.createElement('div');
+        checkboxWrapper.className = 'checkbox-wrapper';
+
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.id = `task_${sessionNo}_${index}`;
+        checkbox.onchange = () => toggleExercise(checkbox);
+
+        const exerciseContent = document.createElement('div');
+        exerciseContent.className = 'exercise-content';
+
+        const label = document.createElement('label');
+        label.setAttribute('for', checkbox.id);
+        label.innerHTML = `<strong>${task.title}</strong>`;
+        if (task.description) {
+          label.innerHTML += `<br><small>${task.description}</small>`;
+        }
+
+        checkboxWrapper.appendChild(checkbox);
+        exerciseContent.appendChild(label);
+        exerciseItem.appendChild(checkboxWrapper);
+        exerciseItem.appendChild(exerciseContent);
+        exerciseBox.appendChild(exerciseItem);
+      });
+
+      card.appendChild(typeSpan);
+      card.appendChild(heading);
+      card.appendChild(exerciseBox);
+
+      return card;
+    }
+
+    // Simple markdown to HTML converter
+    function markdownToHtml(markdown) {
+      return markdown
+        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\*(.*?)\*/g, '<em>$1</em>')
+        .replace(/\n\n/g, '</p><p>')
+        .replace(/\n/g, '<br>')
+        .replace(/^/, '<p>')
+        .replace(/$/, '</p>');
+    }
+
+    // Login functionality
+    document.getElementById('loginForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const username = document.getElementById('username').value.toLowerCase();
+      const password = document.getElementById('password').value;
+
+      if (!supabaseClient) {
+        showNotification('System się ładuje, spróbuj za chwilę...');
+        return;
+      }
+
+      try {
+        const { data: profile, error } = await supabaseClient
+          .from('profiles')
+          .select('username, display_name, pin_hash')
+          .eq('username', username)
+          .single();
+
+        if (error || !profile) {
+          showNotification('Nieprawidłowy login lub hasło');
+          return;
+        }
+
+        // Simple PIN validation
+        if (profile.pin_hash !== password) {
+          showNotification('Nieprawidłowy login lub hasło');
+          return;
+        }
+
+        logFirstLogin(username);
+
+        const displayName = profile.display_name || formatDisplayName(username);
+
+        localStorage.setItem('userName', displayName);
+        localStorage.setItem('username', username);
+        localStorage.setItem('userInitials', getInitials(displayName));
+
+        document.getElementById('loginScreen').style.display = 'none';
+        document.getElementById('appScreen').style.display = 'block';
+
+        document.getElementById('userName').textContent = displayName;
+        document.getElementById('userAvatar').textContent = getInitials(displayName);
+
+        await loadUserData();
+
+      } catch (error) {
+        console.error('Login error:', error);
+        showNotification('Błąd logowania. Spróbuj ponownie.');
+      }
     });
-}
 
-        // NOWA FUNKCJA - renderowanie sekcji materiałów
-        function createMaterialsBarSection(materialsBar) {
-            const section = document.createElement('div');
-            section.className = 'materials-bar-section';
-            
-            const heading = document.createElement('h4');
-            heading.innerHTML = '📚 Materiały do polecenia';
-            section.appendChild(heading);
-            
-            const materialsList = document.createElement('div');
-            materialsList.className = 'materials-list';
-            
-            materialsBar.forEach(material => {
-                const item = document.createElement('div');
-                item.className = 'material-item';
-                
-                const name = document.createElement('div');
-                name.className = 'material-name';
-                name.textContent = material.name;
-                
-                const link = document.createElement('a');
-                link.className = 'material-link';
-                link.href = material.link;
-                link.target = '_blank';
-                link.rel = 'noopener noreferrer';
-                link.textContent = 'Otwórz';
-                
-                item.appendChild(name);
-                item.appendChild(link);
-                materialsList.appendChild(item);
-            });
-            
-            section.appendChild(materialsList);
-            return section;
+    function formatDisplayName(username) {
+      const [firstName, lastName] = username.split('.');
+      return `${capitalize(firstName)} ${capitalize(lastName)}`;
+    }
+
+    function getInitials(displayName) {
+      const names = displayName.split(' ');
+      return names.map(name => name[0]).join('').toUpperCase();
+    }
+
+    function logFirstLogin(username) {
+      const isFirstLogin = !localStorage.getItem(`firstLogin_${username}`);
+      if (isFirstLogin) {
+        localStorage.setItem(`firstLogin_${username}`, new Date().toISOString());
+        console.log('First login logged locally:', username);
+      }
+    }
+
+    function capitalize(str) {
+      return str ? str.charAt(0).toUpperCase() + str.slice(1) : '';
+    }
+
+    function logout() {
+      localStorage.removeItem('userName');
+      localStorage.removeItem('username');
+      localStorage.removeItem('userInitials');
+
+      document.getElementById('loginScreen').style.display = 'flex';
+      document.getElementById('appScreen').style.display = 'none';
+      document.getElementById('loginForm').reset();
+
+      document.getElementById('currentGoal').textContent = 'Ładowanie danych...';
+      document.getElementById('currentProgress').textContent = 'Ładowanie danych...';
+      document.getElementById('currentGoal').classList.add('loading');
+      document.getElementById('currentProgress').classList.add('loading');
+    }
+
+    function showPasswordModal() {
+      document.getElementById('passwordModal').style.display = 'flex';
+    }
+
+    function closePasswordModal() {
+      document.getElementById('passwordModal').style.display = 'none';
+      document.getElementById('passwordForm').reset();
+    }
+
+    document.getElementById('passwordForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const newPassword = document.getElementById('newPassword').value;
+      const confirmPassword = document.getElementById('confirmPassword').value;
+      const username = localStorage.getItem('username');
+
+      if (newPassword !== confirmPassword) {
+        showNotification('Hasła nie są identyczne!');
+        return;
+      }
+
+      try {
+        if (!supabaseClient) {
+          showNotification('System się ładuje, spróbuj za chwilę...');
+          return;
         }
 
-        // Create material card element
-        function createMaterialCard(material) {
-            const card = document.createElement('div');
-            card.className = 'material-card';
-            
-            const typeSpan = document.createElement('span');
-            typeSpan.className = 'material-type';
-            typeSpan.textContent = (material.kind || 'info').toUpperCase();
-            
-            const heading = document.createElement('h3');
-            heading.textContent = material.heading || 'Bez tytułu';
-            
-            const content = document.createElement('div');
-            content.innerHTML = markdownToHtml(material.body_md || '');
-            
-            card.appendChild(typeSpan);
-            card.appendChild(heading);
-            card.appendChild(content);
-            
-            return card;
-        }
+        const { error } = await supabaseClient
+          .from('profiles')
+          .update({ pin_hash: newPassword })
+          .eq('username', username);
 
-        // Create tasks card element
-        function createTasksCard(tasks, sessionNo) {
-            const card = document.createElement('div');
-            card.className = 'material-card';
-            
-            const typeSpan = document.createElement('span');
-            typeSpan.className = 'material-type';
-            typeSpan.textContent = 'ZADANIA';
-            
-            const heading = document.createElement('h3');
-            heading.textContent = 'Do wypróbowania w tym tygodniu';
-            
-            const exerciseBox = document.createElement('div');
-            exerciseBox.className = 'exercise-box';
-            
-            const exerciseHeading = document.createElement('h4');
-            exerciseHeading.innerHTML = '✅ Zadania na ten tydzień';
-            exerciseBox.appendChild(exerciseHeading);
-            
-            tasks.forEach((task, index) => {
-                const exerciseItem = document.createElement('div');
-                exerciseItem.className = 'exercise-item';
-                
-                const checkboxWrapper = document.createElement('div');
-                checkboxWrapper.className = 'checkbox-wrapper';
-                
-                const checkbox = document.createElement('input');
-                checkbox.type = 'checkbox';
-                checkbox.id = `task_${sessionNo}_${index}`;
-                checkbox.onchange = () => toggleExercise(checkbox);
-                
-                const exerciseContent = document.createElement('div');
-                exerciseContent.className = 'exercise-content';
-                
-                const label = document.createElement('label');
-                label.setAttribute('for', checkbox.id);
-                label.innerHTML = `<strong>${task.title}</strong>`;
-                if (task.description) {
-                    label.innerHTML += `<br><small>${task.description}</small>`;
-                }
-                
-                checkboxWrapper.appendChild(checkbox);
-                exerciseContent.appendChild(label);
-                exerciseItem.appendChild(checkboxWrapper);
-                exerciseItem.appendChild(exerciseContent);
-                exerciseBox.appendChild(exerciseItem);
-            });
-            
-            card.appendChild(typeSpan);
-            card.appendChild(heading);
-            card.appendChild(exerciseBox);
-            
-            return card;
-        }
+        if (error) throw error;
 
-        // Simple markdown to HTML converter
-        function markdownToHtml(markdown) {
-            return markdown
-                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-                .replace(/\*(.*?)\*/g, '<em>$1</em>')
-                .replace(/\n\n/g, '</p><p>')
-                .replace(/\n/g, '<br>')
-                .replace(/^/, '<p>')
-                .replace(/$/, '</p>');
-        }
+        showNotification('Hasło zostało zmienione!');
+        closePasswordModal();
+      } catch (error) {
+        console.error('Password change error:', error);
+        showNotification('Nie udało się zmienić hasła. Spróbuj ponownie.');
+      }
+    });
 
-        // Login functionality
-        document.getElementById('loginForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const username = document.getElementById('username').value.toLowerCase();
-            const password = document.getElementById('password').value;
-            
-            if (!supabase) {
-                showNotification('System się ładuje, spróbuj za chwilę...');
-                return;
-            }
+    // FIX: bez polegania na "event"
+    function switchTab(sessionId) {
+      document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
 
-            try {
-                // Validate against Supabase
-                const { data: profile, error } = await supabase
-                    .from('profiles')
-                    .select('username, display_name, pin_hash')
-                    .eq('username', username)
-                    .single();
+      const tabToActivate = document.querySelector(`.tab[onclick="switchTab('${sessionId}')"]`);
+      if (tabToActivate) tabToActivate.classList.add('active');
 
-                if (error || !profile) {
-                    showNotification('Nieprawidłowy login lub hasło');
-                    return;
-                }
+      document.querySelectorAll('.session-content').forEach(content => content.classList.remove('active'));
+      const content = document.getElementById(sessionId);
+      if (content) content.classList.add('active');
+    }
 
-                // Simple PIN validation
-                if (profile.pin_hash !== password) {
-                    showNotification('Nieprawidłowy login lub hasło');
-                    return;
-                }
+    function toggleExercise(checkbox) {
+      const exerciseItem = checkbox.closest('.exercise-item');
+      const content = exerciseItem.querySelector('.exercise-content');
 
-                logFirstLogin(username);
-                
-                const displayName = profile.display_name || formatDisplayName(username);
-                
-                localStorage.setItem('userName', displayName);
-                localStorage.setItem('username', username);
-                localStorage.setItem('userInitials', getInitials(displayName));
-                
-                document.getElementById('loginScreen').style.display = 'none';
-                document.getElementById('appScreen').style.display = 'block';
-                
-                document.getElementById('userName').textContent = displayName;
-                document.getElementById('userAvatar').textContent = getInitials(displayName);
+      if (checkbox.checked) {
+        content.classList.add('exercise-done');
+        showNotification('Świetnie! Zadanie wykonane');
+        localStorage.setItem(checkbox.id, 'done');
+      } else {
+        content.classList.remove('exercise-done');
+        localStorage.removeItem(checkbox.id);
+      }
+    }
 
-                await loadUserData();
-
-            } catch (error) {
-                console.error('Login error:', error);
-                showNotification('Błąd logowania. Spróbuj ponownie.');
-            }
+    window.addEventListener('load', function() {
+      setTimeout(() => {
+        document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+          if (localStorage.getItem(checkbox.id) === 'done') {
+            checkbox.checked = true;
+            checkbox.closest('.exercise-item')
+              .querySelector('.exercise-content')
+              .classList.add('exercise-done');
+          }
         });
+      }, 1000);
+    });
 
-        function formatDisplayName(username) {
-            const [firstName, lastName] = username.split('.');
-            return `${capitalize(firstName)} ${capitalize(lastName)}`;
+    async function submitFeedback() {
+      const feedback = document.querySelector('.feedback-textarea').value;
+      const username = localStorage.getItem('username');
+
+      if (feedback.trim()) {
+        try {
+          const response = await fetch('https://n8n-destruktura-u56766.vm.elestio.app/webhook-test/a340811d-28da-488c-9c99-add5f0c32f4a', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              timestamp: new Date().toISOString(),
+              username: username,
+              session_no: getCurrentSessionNo(),
+              feedback_text: feedback,
+              source: 'portal'
+            })
+          });
+
+          if (response.ok) {
+            showNotification('Dziękuję za feedback! Przeczytam go przed kolejnym spotkaniem');
+            document.querySelector('.feedback-textarea').value = '';
+          } else {
+            showNotification('Nie udało się wysłać. Spróbuj ponownie.');
+          }
+        } catch (error) {
+          console.error('Feedback error:', error);
+          showNotification('Błąd połączenia. Sprawdź internet i spróbuj ponownie.');
         }
+      } else {
+        showNotification('Napisz coś przed wysłaniem');
+      }
+    }
 
-        function getInitials(displayName) {
-            const names = displayName.split(' ');
-            return names.map(name => name[0]).join('').toUpperCase();
-        }
+    function getCurrentSessionNo() {
+      const activeTab = document.querySelector('.tab.active');
+      const sessionId = activeTab?.getAttribute('onclick')?.match(/session(\d+)/)?.[1];
+      return sessionId ? parseInt(sessionId) : 1;
+    }
 
-        function logFirstLogin(username) {
-            const isFirstLogin = !localStorage.getItem(`firstLogin_${username}`);
-            if (isFirstLogin) {
-                localStorage.setItem(`firstLogin_${username}`, new Date().toISOString());
-                console.log('First login logged locally:', username);
-            }
-        }
+    function showNotification(message) {
+      const notification = document.getElementById('notification');
+      notification.textContent = message;
+      notification.classList.add('show');
 
-        function capitalize(str) {
-            return str ? str.charAt(0).toUpperCase() + str.slice(1) : '';
-        }
+      setTimeout(() => notification.classList.remove('show'), 3000);
+    }
 
-        window.addEventListener('load', function() {
-            const userName = localStorage.getItem('userName');
-            if (userName) {
-                document.getElementById('loginScreen').style.display = 'none';
-                document.getElementById('appScreen').style.display = 'block';
-                document.getElementById('userName').textContent = userName;
-                document.getElementById('userAvatar').textContent = localStorage.getItem('userInitials');
-            }
-        });
+    window.onclick = function(event) {
+      const modal = document.getElementById('passwordModal');
+      if (event.target == modal) {
+        closePasswordModal();
+      }
+    };
 
-        function logout() {
-            localStorage.removeItem('userName');
-            localStorage.removeItem('username');
-            localStorage.removeItem('userInitials');
-            document.getElementById('loginScreen').style.display = 'flex';
-            document.getElementById('appScreen').style.display = 'none';
-            document.getElementById('loginForm').reset();
-            
-            document.getElementById('currentGoal').textContent = 'Ładowanie danych...';
-            document.getElementById('currentProgress').textContent = 'Ładowanie danych...';
-            document.getElementById('currentGoal').classList.add('loading');
-            document.getElementById('currentProgress').classList.add('loading');
-        }
-
-        function showPasswordModal() {
-            document.getElementById('passwordModal').style.display = 'flex';
-        }
-
-        function closePasswordModal() {
-            document.getElementById('passwordModal').style.display = 'none';
-            document.getElementById('passwordForm').reset();
-        }
-
-        document.getElementById('passwordForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const newPassword = document.getElementById('newPassword').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
-            const username = localStorage.getItem('username');
-            
-            if (newPassword !== confirmPassword) {
-                showNotification('Hasła nie są identyczne!');
-                return;
-            }
-            
-            try {
-                const { error } = await supabase
-                    .from('profiles')
-                    .update({ pin_hash: newPassword })
-                    .eq('username', username);
-
-                if (error) throw error;
-                
-                showNotification('Hasło zostało zmienione!');
-                closePasswordModal();
-            } catch (error) {
-                console.error('Password change error:', error);
-                showNotification('Nie udało się zmienić hasła. Spróbuj ponownie.');
-            }
-        });
-
-        function switchTab(sessionId) {
-            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
-            event.target.classList.add('active');
-            
-            document.querySelectorAll('.session-content').forEach(content => {
-                content.classList.remove('active');
-            });
-            document.getElementById(sessionId).classList.add('active');
-        }
-
-        function toggleExercise(checkbox) {
-            const exerciseItem = checkbox.closest('.exercise-item');
-            const content = exerciseItem.querySelector('.exercise-content');
-            
-            if (checkbox.checked) {
-                content.classList.add('exercise-done');
-                showNotification('Świetnie! Zadanie wykonane');
-                localStorage.setItem(checkbox.id, 'done');
-            } else {
-                content.classList.remove('exercise-done');
-                localStorage.removeItem(checkbox.id);
-            }
-        }
-
-        window.addEventListener('load', function() {
-            setTimeout(() => {
-                document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
-                    if (localStorage.getItem(checkbox.id) === 'done') {
-                        checkbox.checked = true;
-                        checkbox.closest('.exercise-item').querySelector('.exercise-content').classList.add('exercise-done');
-                    }
-                });
-            }, 1000);
-        });
-
-        async function submitFeedback() {
-            const feedback = document.querySelector('.feedback-textarea').value;
-            const username = localStorage.getItem('username');
-            
-            if (feedback.trim()) {
-                try {
-                    const response = await fetch('https://n8n-destruktura-u56766.vm.elestio.app/webhook-test/a340811d-28da-488c-9c99-add5f0c32f4a', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            timestamp: new Date().toISOString(),
-                            username: username,
-                            session_no: getCurrentSessionNo(),
-                            feedback_text: feedback,
-                            source: 'portal'
-                        })
-                    });
-
-                    if (response.ok) {
-                        showNotification('Dziękuję za feedback! Przeczytam go przed kolejnym spotkaniem');
-                        document.querySelector('.feedback-textarea').value = '';
-                    } else {
-                        showNotification('Nie udało się wysłać. Spróbuj ponownie.');
-                    }
-                } catch (error) {
-                    console.error('Feedback error:', error);
-                    showNotification('Błąd połączenia. Sprawdź internet i spróbuj ponownie.');
-                }
-            } else {
-                showNotification('Napisz coś przed wysłaniem');
-            }
-        }
-
-        function getCurrentSessionNo() {
-            const activeTab = document.querySelector('.tab.active');
-            const sessionId = activeTab?.getAttribute('onclick')?.match(/session(\d+)/)?.[1];
-            return sessionId ? parseInt(sessionId) : 1;
-        }
-
-        function showNotification(message) {
-            const notification = document.getElementById('notification');
-            notification.textContent = message;
-            notification.classList.add('show');
-            
-            setTimeout(() => {
-                notification.classList.remove('show');
-            }, 3000);
-        }
-
-        window.onclick = function(event) {
-            const modal = document.getElementById('passwordModal');
-            if (event.target == modal) {
-                closePasswordModal();
-            }
-        }
-
-        document.querySelectorAll('input[pattern="\\d{4}"]').forEach(input => {
-            input.addEventListener('input', function(e) {
-                this.value = this.value.replace(/[^0-9]/g, '');
-            });
-        });
-    </script>
+    document.querySelectorAll('input[pattern="\\d{4}"]').forEach(input => {
+      input.addEventListener('input', function() {
+        this.value = this.value.replace(/[^0-9]/g, '');
+      });
+    });
+  </script>
 </body>
 </html>
