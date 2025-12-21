@@ -880,12 +880,12 @@
         };
 
         // Initialize Supabase client
-        let supabase;
+    let supabaseClient;
         if (typeof window !== 'undefined') {
             const script = document.createElement('script');
             script.src = 'https://unpkg.com/@supabase/supabase-js@2';
             script.onload = () => {
-                supabase = window.supabase.createClient(API_CONFIG.supabaseUrl, API_CONFIG.supabaseKey);
+        supabaseClient = window.supabase.createClient(API_CONFIG.supabaseUrl, API_CONFIG.supabaseKey);
                 
                 // Load user data if logged in
                 const userName = localStorage.getItem('userName');
