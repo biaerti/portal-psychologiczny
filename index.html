@@ -671,6 +671,9 @@
         <button class="tab" onclick="switchTab('session1')">📅 Spotkanie 1</button>
         <button class="tab" onclick="switchTab('session2')">📅 Spotkanie 2</button>
         <button class="tab" onclick="switchTab('session3')">📅 Spotkanie 3</button>
+        <button class="tab" onclick="switchTab('session4')">📅 Spotkanie 4</button>
+<button class="tab" onclick="switchTab('session5')">📅 Spotkanie 5</button>
+
       </div>
     </div>
 
@@ -748,6 +751,37 @@
           </div>
         </div>
       </div>
+<!-- Session 4 -->
+<div class="session-content" id="session4">
+  <div class="materials-grid" id="session4-materials">
+    <div class="material-card">
+      <span class="material-type">WKRÓTCE</span>
+      <h3>Tu będą materiały z czwartego spotkania</h3>
+      <p>Zajrzyj tu po spotkaniu.</p>
+    </div>
+  </div>
+  <div class="feedback-section">
+    <h4>💭 Jak poszło?</h4>
+    <textarea class="feedback-textarea" placeholder="Napisz jak poszło z ćwiczeniami..."></textarea>
+    <button class="btn-submit-feedback" onclick="submitFeedback()">Wyślij feedback</button>
+  </div>
+</div>
+
+<!-- Session 5 -->
+<div class="session-content" id="session5">
+  <div class="materials-grid" id="session5-materials">
+    <div class="material-card">
+      <span class="material-type">WKRÓTCE</span>
+      <h3>Tu będą materiały z piątego spotkania</h3>
+      <p>Zajrzyj tu po spotkaniu.</p>
+    </div>
+  </div>
+  <div class="feedback-section">
+    <h4>💭 Jak poszło?</h4>
+    <textarea class="feedback-textarea" placeholder="Napisz jak poszło z ćwiczeniami..."></textarea>
+    <button class="btn-submit-feedback" onclick="submitFeedback()">Wyślij feedback</button>
+  </div>
+</div>
 
       <!-- ZnanyLekarz Widget Section -->
       <div class="znanylekarz-section">
@@ -925,55 +959,75 @@
       }
     }
 
-    function renderSessions(sessions) {
-      sessions.forEach(session => {
-        const sessionContent = document.getElementById(`session${session.session_no}`);
-        if (!sessionContent) return;
+ function renderSessions(sessions) {
+  // Render zawartości każdej sesji (1,2,3,4,5...)
+  sessions.forEach(session => {
+    const sessionContent = document.getElementById(`session${session.session_no}`);
+    if (!sessionContent) return;
 
-        const materialsGridContainer = sessionContent.querySelector('.materials-grid');
-        const feedbackSection = sessionContent.querySelector('.feedback-section');
-        if (!materialsGridContainer) return;
+    const materialsGridContainer = sessionContent.querySelector('.materials-grid');
+    const feedbackSection = sessionContent.querySelector('.feedback-section');
+    if (!materialsGridContainer) return;
 
-        materialsGridContainer.innerHTML = '';
+    // wyczyść grid
+    materialsGridContainer.innerHTML = '';
 
-        // 1. Kafelki
-        if (session.materials && session.materials.length > 0) {
-          session.materials.sort((a, b) => (a.position || 0) - (b.position || 0));
-          session.materials.forEach(material => {
-            const materialCard = createMaterialCard(material);
-            materialsGridContainer.appendChild(materialCard);
-          });
-        }
-
-        // 2. Zadania
-        if (session.tasks && session.tasks.length > 0) {
-          const tasksCard = createTasksCard(session.tasks, session.session_no);
-          materialsGridContainer.appendChild(tasksCard);
-        }
-
-        // 3. Usuń poprzednią sekcję materials_bar
-        const existingMaterialsBar = sessionContent.querySelector('.materials-bar-section');
-        if (existingMaterialsBar) existingMaterialsBar.remove();
-
-        // 4. Dodaj materials_bar między gridem a feedbackiem
-        if (session.materials_bar && session.materials_bar.length > 0) {
-          console.log(`Rendering materials_bar for session ${session.session_no}:`, session.materials_bar);
-          const materialsBarSection = createMaterialsBarSection(session.materials_bar);
-
-          if (feedbackSection) {
-            sessionContent.insertBefore(materialsBarSection, feedbackSection);
-          } else {
-            sessionContent.appendChild(materialsBarSection);
-          }
-        }
-
-        // Update tab
-        const tab = document.querySelector(`[onclick="switchTab('session${session.session_no}')"]`);
-        if (tab && !tab.textContent.includes('✅')) {
-          tab.innerHTML = tab.innerHTML.replace('📅', '✅');
-        }
-      });
+    // 1. Kafelki materiałów
+    if (session.materials && session.materials.length > 0) {
+      session.materials
+        .sort((a, b) => (a.position || 0) - (b.position || 0))
+        .forEach(material => {
+          const materialCard = createMaterialCard(material);
+          materialsGridContainer.appendChild(materialCard);
+        });
     }
+
+    // 2. Zadania
+    if (session.tasks && session.tasks.length > 0) {
+      const tasksCard = createTasksCard(session.tasks, session.session_no);
+      materialsGridContainer.appendChild(tasksCard);
+    }
+
+    // 3. Usuń poprzednią sekcję materials_bar
+    const existingMaterialsBar = sessionContent.querySelector('.materials-bar-section');
+    if (existingMaterialsBar) existingMaterialsBar.remove();
+
+    // 4. Dodaj materials_bar między gridem a feedbackiem
+    if (session.materials_bar && session.materials_bar.length > 0) {
+      const materialsBarSection = createMaterialsBarSection(session.materials_bar);
+
+      if (feedbackSection) {
+        sessionContent.insertBefore(materialsBarSection, feedbackSection);
+      } else {
+        sessionContent.appendChild(materialsBarSection);
+      }
+    }
+
+    // 5. Oznacz tab jako dostępny
+    const tab = document.querySelector(
+      `[onclick="switchTab('session${session.session_no}')"]`
+    );
+    if (tab && !tab.textContent.includes('✅')) {
+      tab.innerHTML = tab.innerHTML.replace('📅', '✅');
+    }
+  });
+
+  // ===== IF: pokaż / ukryj Spotkanie 4 i 5 =====
+  const has4 = sessions.some(s => s.session_no === 4);
+  const has5 = sessions.some(s => s.session_no === 5);
+
+  const tab4 = document.querySelector(`[onclick="switchTab('session4')"]`);
+  const tab5 = document.querySelector(`[onclick="switchTab('session5')"]`);
+  const sec4 = document.getElementById('session4');
+  const sec5 = document.getElementById('session5');
+
+  if (tab4) tab4.style.display = has4 ? '' : 'none';
+  if (sec4) sec4.style.display = has4 ? '' : 'none';
+
+  if (tab5) tab5.style.display = has5 ? '' : 'none';
+  if (sec5) sec5.style.display = has5 ? '' : 'none';
+}
+
 
     // NOWA FUNKCJA - renderowanie sekcji materiałów
     function createMaterialsBarSection(materialsBar) {
